@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    	<title>View Navigator Sample</title>
+    	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    	<script src="phonegap-1.4.1.js"></script>
+    	
+    	<script src="../../../src/libs/jquery-1.7.1.js"></script>
+    	<script src="../../../src/libs/jquery.animate-enhanced.js"></script>
+    	<script src="../../../src/libs/iscroll.js"></script>
+    	<script src="../../../src/libs/noClickDelay.js"></script>
+    
+    	<link rel="stylesheet" href="../../../src/viewnavigator/viewnavigator.css" type="text/css" />
+    	<script src="../../../src/viewnavigator/viewnavigator.js"></script>
+
+    	<link rel="stylesheet" href="../../../src/libs/css/activityIndicator.css" type="text/css" />
+    	
+    	<style>
+                
+			* {
+				font-family: Arial, sans-serif;
+			}
+    	
+    		#detail {
+				padding:10px;
+    		}
+    		
+    		.moviePoster {
+    			float:right;
+    			width:120px;
+    			height:178px;
+    			overflow:hidden;
+    			margin:10px;
+    			padding:2px;
+    			border:1px solid #999999;
+    		}
+    		
+    		.listSelected {
+				background-color:#424242;
+				background-image:-webkit-gradient(linear, 0 0, 0 100, from(#0069d6), to(#999da9));
+				background-image:-moz-linear-gradient(top, #0069d6, #999da9);
+				background-image:-o-linear-gradient(top, #0069d6, #999da9);
+				color: #FFF;
+				font-weight:bold;
+						}
+						
+			ul,li {
+				padding:0;
+				margin:0;
+				border:0;
+			}
+			
+			li {
+				padding:0 10px;
+				border-bottom:1px solid #ccc;
+				height:40px; line-height:40px;
+				font-weight:normal;
+				cursor:pointer;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				-o-text-overflow: ellipsis;
+				-moz-binding: url('assets/xml/ellipsis.xml#ellipsis');
+			}
+
+                
+                #detail li {
+                
+					white-space: normal;
+					overflow: visible;
+                    height:auto; 
+                }
+
+    	</style>
+
+ 		<script type="text/javascript" charset="utf-8">
+            
+            var API_KEY = "erxqmwxj75wdrgwfwgkc9vng";
+            
+            var sampleData;
+            
+            /* ==================== Controller ==================== */
+            
+            var controller = {
+                data : []                           
+            };
+            
+            controller.init = function () {
+                var url = "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?limit=25&country=us&apikey=" + API_KEY;
+                console.log( url );
+                
+               this.rootView =  { title: "Rotten Tomatoes", 
+						 backLabel: null,
+						 view:  $("<div id='rootView'><div class='activityIndicator'></div></div>")
+					   };
+                
+                $.ajax({
+				  url: url,
+				  dataType: "json",
+				  success: function(data, textStatus, jqXHR) {
+                         
+                            controller.rootData = data;
+                            controller.renderDefaultView();
+                         
+                         },
+				  error: function(jqXHR, textStatus, errorThrown) { 
+				  	alert("error") 
+				  }
+				});
+                
+                return;
+            };
+            
+            controller.renderDefaultView = function () {
+            	this.rootView.view.children().remove();
+            	var html = "<ul>";
+				for ( var i = 0; i < controller.rootData.movies.length; i ++ )
+				{
+					var movie = controller.rootData.movies[i];
+					html += "<li id='" + movie.id + "'onclick='controller.renderDetails(\"" + i + "\")'>" + movie.title + "</li>";	
+				}
+				html += "</ul>";
+				this.rootView.view.html( html );
+                setTimeout( function() {
+                       window.viewNavigator.refreshScroller();
+                           }, 10 );
+                
+                
+            }
+            
+            controller.renderDetails = function (index) {
+            	var movie = controller.rootData.movies[index];
+            	
+            	$( "#"+movie.id ).addClass( "listSelected" );
+            	
+            	var html = "<div id='detail'>";
+            	html += "<h1>" + movie.title + "</h1>";
+				html += "<p><strong>" + movie.mpaa_rating + "</strong>, " + movie.runtime + "min. - (" + movie.year + ")</p>";
+				html += "<img src=\"" + movie.posters.profile + "\" class='moviePoster'>";
+				html += "<p>" + movie.synopsis + "</p>";
+				html += "<h3>Ratings:</h3><p>";
+				html +=    "<strong>Audience:</strong> " + movie.ratings.audience_score + " - " + movie.ratings.audience_rating + "<br>" 
+				html +=    "<strong>Critics:</strong> " + movie.ratings.critics_score + " - " + movie.ratings.critics_rating + "<br>" 
+				html += "</p>"
+				html += "<h4>What the critics say:</h4><p>" + movie.critics_consensus + "</p>";
+				html += "<h3>Cast:</h3><p><ul>";
+				
+				for ( var i = 0; i < movie.abridged_cast.length; i ++ )
+				{
+					var actor = movie.abridged_cast[i];
+					html += "<li><strong>" + actor.name + ":</strong> ";
+					
+					for ( var j = 0; j < actor.characters.length; j ++ )
+					{
+						if ( j > 0 ) { html += ", " };
+						html += actor.characters[j];
+					}
+					
+					html += "</li>";	
+				}
+				
+				html += "</ul></p>";
+				
+				html += "</div>";
+            	
+            	var movieId = movie.id;
+            	var callback = function() {
+					controller.rootView.view.find( "#"+movieId ).removeClass( "listSelected" );
+				 }
+            	
+            	var viewDescriptor =  { title: movie.title, 
+						 backLabel: "Home",
+						 backCallback: callback,
+						 view:  $(html)
+					   };
+					                            
+                /*var listItems = controller.rootView.view.find( "li" );
+                listItems.each(function(index, li) {
+                    var item = $(li).get(0);
+                    NoClickDelay( item );
+                });*/
+                
+				window.viewNavigator.pushView( viewDescriptor);
+                    
+            }
+            
+
+			$(document).ready( function() {
+				
+				//initialize the application controller
+                controller.init();
+				
+				//Setup the ViewNavigator
+				window.viewNavigator = new ViewNavigator( 'body' );	
+				window.viewNavigator.pushView( controller.rootView );
+				
+				
+			} );
+			
+		</script>
+
+	</head>
+	<body></body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    	<title>Sliding View Sample</title>
+    	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    	<script src="../../../src/libs/jquery-1.7.1.js"></script>
+    	<script src="../../../src/libs/jquery.animate-enhanced.js"></script>
+    	
+    	<link rel="stylesheet" href="../../../src/slidingview/slidingview.css" type="text/css" />
+    	<script src="../../../src/slidingview/slidingview.js"></script>
+
+		<script>
+
+			$(document).ready( function() {
+				
+				//Setup the ViewNavigator
+				new SlidingView( 'sidebar', 'body' );	
+				
+			} );
+			
+			
+			
+		</script>
+		
+		<style>
+			#sidebar {
+				background-color: red;
+				padding:10px;
+			}
+			#body {
+				background-color: white;
+				padding:10px;
+			}
+		</style>
+
+	</head>
+	<body>
+	
+		<div class="slidingview_wrapper">
+			<div id="sidebar">sidebar here!</div>
+			<div id="body">body here!</div>
+		</div>
+	
+	</body>
+</html>
