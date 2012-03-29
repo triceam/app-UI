@@ -51,7 +51,7 @@
 				border:0;
 			}
 			
-			li {
+			.viewNavigator_content li {
 				padding:0 10px;
 				border-bottom:1px solid #ccc;
 				height:40px; line-height:40px;
@@ -151,10 +151,12 @@
 					var actor = movie.abridged_cast[i];
 					html += "<li><strong>" + actor.name + ":</strong> ";
 					
-					for ( var j = 0; j < actor.characters.length; j ++ )
-					{
-						if ( j > 0 ) { html += ", " };
-						html += actor.characters[j];
+					if ( actor.characters ) { 
+						for ( var j = 0; j < actor.characters.length; j ++ )
+						{
+							if ( j > 0 ) { html += ", " };
+							html += actor.characters[j];
+						}
 					}
 					
 					html += "</li>";	
@@ -174,15 +176,8 @@
 						 backCallback: callback,
 						 view:  $(html)
 					   };
-					                            
-                /*var listItems = controller.rootView.view.find( "li" );
-                listItems.each(function(index, li) {
-                    var item = $(li).get(0);
-                    NoClickDelay( item );
-                });*/
-                
+					     
 				window.viewNavigator.pushView( viewDescriptor);
-                    
             }
             
 

@@ -33,15 +33,6 @@ var ViewNavigator = function( target ) {
 	}
 	window.viewNavigators[ this.uniqueId ] = this; 
 
-	if ( typeof PhoneGap != 'undefined' ) {
-		//backKeyViewNavigators is only used in PhoneGap on Android
-		if ( window.backKeyViewNavigators == null || window.backKeyViewNavigators == undefined ) {
-			window.backKeyViewNavigators = [];		
-		}
-		if ( this.supportsBackKey ) {
-			window.backKeyViewNavigators.push( this );
-		}
-	}
 }
 
 ViewNavigator.prototype.replaceView = function( viewDescriptor ) {
@@ -278,7 +269,7 @@ ViewNavigator.prototype.guid = function() {
 
 
 /*  PHONEGAP INTEGRATION */
-
+/*
 //android+phonegap specific back button support - will only work if phonegap is used on android (www.phonegap.com)
 if ( typeof PhoneGap != 'undefined' ) { 
 	document.addEventListener("deviceready", onDeviceReady, false);
@@ -295,3 +286,4 @@ function onBackKey( event ) {
 		window.backKeyViewNavigators[x].popView();
 	}
 }
+*/

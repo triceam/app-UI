@@ -1,4 +1,4 @@
-var SplitViewNavigator = function( target ) {
+var SplitViewNavigator = function( target, toggleButtonLabel ) {
 	
 	this.animating = false;
 	this.animationDuration = 350;
@@ -19,20 +19,7 @@ var SplitViewNavigator = function( target ) {
 	
 	this.bodyViewNavigator = new ViewNavigator( this.bodyContainer.get()[0] );
 	
-	/*
-	this.bodyHeader = $('<div class="viewNavigator_header"></div>');
-	this.bodyContent = $('<div class="viewNavigator_content" id="contentRoot"></div>');
-	this.bodyContainer.append( this.bodyHeader );
-	this.bodyContainer.append( this.bodyContent );
-	
-	this.bodyHeaderContent = $('<div class="viewNavigator_headerContent"></div>');
-	this.bodyHeaderTitle = $("<div class='viewNavigator_header_title'></div>");
-	this.bodyHeaderContent.append( this.bodyHeaderTitle );
-	this.bodyHeader.append( this.bodyHeaderContent );
-	*/
-	
-	this.toggleSidebarButton = $('<li class="viewNavigator_header_backlink backLinkButton hidden" id="toggle' + this.uniqueId + '" onclick="window.splitViewNavigator.showSidebar()">toggle</li>');
-	
+	this.toggleSidebarButton = $('<li class="viewNavigator_header_backlink backLinkButton hidden" id="toggle' + this.uniqueId + '" onclick="window.splitViewNavigator.showSidebar()">'+toggleButtonLabel+'</li>');
 	
 	this.rootElement.append( this.bodyContainer );
 	this.rootElement.append( this.contentOverlay );
