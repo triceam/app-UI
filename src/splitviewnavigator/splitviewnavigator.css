@@ -4,6 +4,12 @@
 -webkit-user-select: none;
 }
 
+input,
+textarea {
+	-webkit-touch-callout: auto;
+	-webkit-user-select: auto;
+}
+
 body {
 	position:absolute;
 	top:0px;

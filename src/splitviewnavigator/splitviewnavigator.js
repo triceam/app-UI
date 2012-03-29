@@ -49,15 +49,6 @@ var SplitViewNavigator = function( target, toggleButtonLabel ) {
 SplitViewNavigator.prototype.resizeContent = function() {
 
 	this.applyStylesByOrientation();
-	
-	/*
-	var targetWidth = this.bodyContainer.width();
-	console.log( targetWidth );
-	if ( this.bodyHeaderContent )
-		this.bodyHeaderContent.width( targetWidth );
-	if ( this.bodyHeaderContent )
-		this.bodyHeaderContent.width( targetWidth );
-		*/
 }
 
 SplitViewNavigator.prototype.applyStylesByOrientation = function() {

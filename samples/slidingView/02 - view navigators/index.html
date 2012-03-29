@@ -79,11 +79,6 @@
 				var bodyView = $('<div>' + Math.random().toString() + '<hr><li href="#" onclick="'+side+'PushView()"  class="backLinkButton">push view</li> <li  href="#" onclick="'+side+'PopView()" class="backLinkButton">pop view</li><hr>' + getMeat() + '</div>');
 				var links = bodyView.find('a');
 				
-				/*for ( var i=0; i<links.length; i++)
-				{
-					NoClickDelay( links[i] );
-				}*/
-				
 				return { title: side + "Default View " + parseInt(Math.random()*1000), 
 						 backLabel: "Back",
 						 view:  bodyView
