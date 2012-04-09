@@ -1,4 +1,4 @@
-var SplitViewNavigator = function( target, toggleButtonLabel ) {
+var SplitViewNavigator = function( target, toggleButtonLabel, backLinkCSS, bindToWindow ) {
 	
 	this.animating = false;
 	this.animationDuration = 350;
@@ -15,11 +15,13 @@ var SplitViewNavigator = function( target, toggleButtonLabel ) {
 	this.contentOverlay = $('<div class="content_overlay_hidden" id="overlay'+this.uniqueId+'"></div>');
 	this.bodyContainer = $('<div class="splitViewNavigator_body"></div>');
 	
-	this.sidebarViewNavigator = new ViewNavigator( this.sidebarContainer.get()[0] );	
+	this.sidebarViewNavigator = new ViewNavigator( this.sidebarContainer.get()[0], backLinkCSS, false );	
 	
-	this.bodyViewNavigator = new ViewNavigator( this.bodyContainer.get()[0] );
+	this.bodyViewNavigator = new ViewNavigator( this.bodyContainer.get()[0], backLinkCSS, false );
 	
-	this.toggleSidebarButton = $('<li class="viewNavigator_header_backlink backLinkButton hidden" id="toggle' + this.uniqueId + '" onclick="window.splitViewNavigator.showSidebar()">'+toggleButtonLabel+'</li>');
+	this.backLinkCSS = backLinkCSS ? backLinkCSS : "viewNavigator_backButton";
+	
+	this.toggleSidebarButton = $('<li class="viewNavigator_header_backlink viewNavigator_backButtonPosition ' + backLinkCSS + '" id="toggle' + this.uniqueId + '" onclick="window.splitViewNavigator.showSidebar()">'+toggleButtonLabel+'</li>');
 	
 	this.rootElement.append( this.bodyContainer );
 	this.rootElement.append( this.contentOverlay );
@@ -27,11 +29,21 @@ var SplitViewNavigator = function( target, toggleButtonLabel ) {
 	this.rootElement.append( this.sidebarContainer );
 	
 	var self = this;
-	$(window).resize( function(event){ self.resizeContent() } );
-	$(this.parent).resize( function(event){ self.resizeContent() } );
 	
-	if ( "onorientationchange" in window ) {
-		$(window).bind( "onorientationchange", function(event){ self.resizeContent() } )
+	/*if ( "onorientationchange" in window ) {
+		$(window).bind( "orientationchange", function(event){ self.resizeContent() } )
+	}
+	else {*/
+		//$(window).resize( function(event){ self.resizeContent() } );
+		//alert( this.parent.attr( "id" ) );
+		this.parent.resize( function(event){ self.resizeContent() } );
+	//}
+	
+	if ( bindToWindow != false ) {
+		$(window).resize( function(event){ self.resizeContent() } );
+	}
+	else {
+		this.parent.resize( function(event){ self.resizeContent() } );
 	}
 	
 	this.resizeContent();
@@ -49,6 +61,8 @@ var SplitViewNavigator = function( target, toggleButtonLabel ) {
 SplitViewNavigator.prototype.resizeContent = function() {
 
 	this.applyStylesByOrientation();
+	this.sidebarViewNavigator.resizeContent();	
+	this.bodyViewNavigator.resizeContent()
 }
 
 SplitViewNavigator.prototype.applyStylesByOrientation = function() {
@@ -144,13 +158,6 @@ SplitViewNavigator.prototype.replaceBodyView = function( viewDescriptor ) {
 	this.bodyViewNavigator.replaceView( viewDescriptor );
 }
 
-/*
-SplitViewNavigator.prototype.setBodyView = function( viewDescriptor ) {
-	
-	this.bodyHeaderTitle.text( viewDescriptor.title );
-	this.bodyContent.empty();
-	this.bodyContent.append( viewDescriptor.view );
-}*/
 
 
 

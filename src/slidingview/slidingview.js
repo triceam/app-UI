@@ -36,7 +36,9 @@ SlidingView.prototype.setupEventHandlers = function() {
 	this.END_EVENT = this.touchSupported ? 'touchend' : 'mouseup';
 
 	var self = this;
-	this.body.get()[0].addEventListener( this.START_EVENT, function( event ){ self.onTouchStart(event), true } );
+	var func = function( event ){ self.onTouchStart(event), true };
+	var body = this.body.get()[0];
+	body.addEventListener( this.START_EVENT, func, false );
 }
 
 SlidingView.prototype.onTouchStart = function(event) {
@@ -48,8 +50,8 @@ SlidingView.prototype.onTouchStart = function(event) {
 	this.touchMoveHandler = function( event ){ self.onTouchMove(event) };
 	this.touchUpHandler = function( event ){ self.onTouchEnd(event) };
 	
-	this.body.get()[0].addEventListener( this.MOVE_EVENT, this.touchMoveHandler );
-	this.body.get()[0].addEventListener( this.END_EVENT, this.touchUpHandler );
+	this.body.get()[0].addEventListener( this.MOVE_EVENT, this.touchMoveHandler, false );
+	this.body.get()[0].addEventListener( this.END_EVENT, this.touchUpHandler, false );
 	this.body.stop();
 }
 
@@ -105,10 +107,17 @@ SlidingView.prototype.updateBasedOnTouchPoints = function( currentPosition ) {
 	
 	//console.log( targetX );
 	//this.body.css("left", targetX );
-	console.log( this.body.css("left") );
-	if ( this.body.css("left") != "0px" );
-	this.body.css("left", "0px" );
+	//console.log( this.body.css("left") );
+	
+	if ( this.body.css("left") != "0px" ) {
+		this.body.css("left", "0px" );
+	}
 	this.body.css("-webkit-transform", "translate3d(" + targetX + "px,0,0)" );
+	this.body.css("-moz-transform", "translate3d(" + targetX + "px,0,0)" );
+	this.body.css("transform", "translate3d(" + targetX + "px,0,0)" );
+	
+	console.log( this.body.css("-moz-transform"), targetX );
+	
 	
 	/*if ( currentPosition != targetX ) {
 	
@@ -150,8 +159,8 @@ SlidingView.prototype.snapToPosition = function() {
 }
 
 SlidingView.prototype.unbindEvents = function() {
-	this.body.get()[0].removeEventListener( this.MOVE_EVENT, this.touchMoveHandler );
-	this.body.get()[0].removeEventListener( this.END_EVENT, this.touchUpHandler );
+	this.body.get()[0].removeEventListener( this.MOVE_EVENT, this.touchMoveHandler, false );
+	this.body.get()[0].removeEventListener( this.END_EVENT, this.touchUpHandler, false );
 }
 
 

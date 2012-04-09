@@ -1,6 +1,6 @@
 
 
-var ViewNavigator = function( target ) {
+var ViewNavigator = function( target, backLinkCSS, bindToWindow ) {
 
 	this.supportsBackKey = true; //phonegap on android only
 	this.animating = false;
@@ -8,7 +8,7 @@ var ViewNavigator = function( target ) {
 	this.animationDuration = 350;
 	this.history = [];
 	this.scroller = null;
-	this.headerPadding = 0;
+	this.headerPadding = 5;
 	
 	this.uniqueId = this.guid();
 	
@@ -23,9 +23,20 @@ var ViewNavigator = function( target ) {
 	
 	this.parent = $( target );
 	
+	this.backLinkCSS = backLinkCSS ? backLinkCSS : "viewNavigator_backButton";
+	
 	var self = this;
-	$(window).resize( function(event){ self.resizeContent() } );
-	$(this.parent).resize( function(event){ self.resizeContent() } );
+	//$(window).resize( function(event){ self.resizeContent() } );
+	//alert( this.parent.toString() );
+	//this.parent.resize( function(event){ self.resizeContent() } );
+	
+	if ( bindToWindow != false ) {
+		$(window).resize( function(event){ self.resizeContent() } );
+	}
+	else {
+		this.parent.resize( function(event){ self.resizeContent() } );
+	}
+	
 	this.parent.append( this.rootElement );
 	
 	if ( window.viewNavigators == null || window.viewNavigators == undefined ) {
@@ -92,7 +103,7 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
 	
 	var linkGuid = this.guid();
 	if ( viewDescriptor.backLabel ) {
-		this.headerBacklink = $('<li class="viewNavigator_header_backlink backLinkButton" id="link' + linkGuid + '" onclick="window.viewNavigators[\'' + this.uniqueId + '\'].popView()">'+ viewDescriptor.backLabel + '</li>');
+		this.headerBacklink = $('<li class="viewNavigator_header_backlink viewNavigator_backButtonPosition ' + this.backLinkCSS +'" id="link' + linkGuid + '" onclick="window.viewNavigators[\'' + this.uniqueId + '\'].popView()">'+ viewDescriptor.backLabel + '</li>');
 		this.headerContent.append( this.headerBacklink );
 		
 		//this is for proper handling in splitviewnavigator
@@ -199,7 +210,7 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
 	}
 	
     if ( viewDescriptor.backLabel ) {
-    	new NoClickDelay( this.headerBacklink.get()[0] );
+    	//new NoClickDelay( this.headerBacklink.get()[0] );
 	}
 }
 
@@ -212,7 +223,7 @@ ViewNavigator.prototype.resetScroller = function() {
 		if ( this.scroller != null ) {
 			this.scroller.destroy();
 		}
-		if ( id ) {
+		if ( id && !(this.currentViewDescriptor && this.currentViewDescriptor.scroll == false)) {
 			var self = this;
 			setTimeout( function() { self.scroller = new iScroll( id ); }, 10 );
 			//this.scroller = new iScroll( id );
