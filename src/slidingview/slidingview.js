@@ -116,7 +116,7 @@ SlidingView.prototype.updateBasedOnTouchPoints = function( currentPosition ) {
 	this.body.css("-moz-transform", "translate3d(" + targetX + "px,0,0)" );
 	this.body.css("transform", "translate3d(" + targetX + "px,0,0)" );
 	
-	console.log( this.body.css("-moz-transform"), targetX );
+	//console.log( this.body.css("-moz-transform"), targetX );
 	
 	
 	/*if ( currentPosition != targetX ) {
