@@ -24,6 +24,8 @@ The SplitViewNavigator component allows you to create tablet experiences with an
 *SlidingView*
 The SlidingView allows content to slide to the side using a horizontal swipe gesture, revealing a navigation container "underneath".   This is very similar to the behavior in Facebook's iPad application.
 
+Please see the "Samples" directory for usage scenarios - there is no documentation yet.
+
 --------------------------------------
 
 BUGS/FEATURES
