@@ -1,5 +1,6 @@
 app-UI
 --------------------------------------
+Learn more about app-UI at: http://triceam.github.com/app-UI/
 
 app-UI is a collection of user interface components that may be helpful to web and mobile developers for creating interactive applications using HTML and JavaScript, especially those targeting mobile devices.  app-UI is a continual work in progress - it was born out of the necessity to have rich & native-feeling interfaces in HTML/JS experiences, and it works great with PhoneGap applications (http://www.phonegap.com).  app-UI can easily be styled/customized using CSS.
 
