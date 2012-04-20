@@ -16,6 +16,12 @@
     	<link rel="stylesheet" href="../../../src/viewnavigator/viewnavigator.css" type="text/css" />
     	<script src="../../../src/viewnavigator/viewnavigator.js"></script>
 
+		<style>
+			li {
+				margin-bottom: 10px;
+			}
+		</style>
+
 		<script>
 
 			$(document).ready( function() {
@@ -37,10 +43,10 @@
 			
 			function getSidebarView() {
 				var viewHTML = "<ul>" +
-									"<li onclick='pushSidebarView()' class='backLinkButton'>Push Sidebar View</li>" +
-									"<li onclick='window.splitViewNavigator.popSidebarView()' class='backLinkButton'>Pop Sidebar View</li>" +
-									"<li onclick='pushBodyView()' class='backLinkButton'>Push Body View</li>" +
-									"<li onclick='window.splitViewNavigator.popBodyView()' class='backLinkButton'>Pop Body View</li>" +
+									"<li onclick='pushSidebarView()' class='viewNavigator_backButton'>Push Sidebar View</li>" +
+									"<li onclick='window.splitViewNavigator.popSidebarView()' class='viewNavigator_backButton'>Pop Sidebar View</li>" +
+									"<li onclick='pushBodyView()' class='viewNavigator_backButton'>Push Body View</li>" +
+									"<li onclick='window.splitViewNavigator.popBodyView()' class='viewNavigator_backButton'>Pop Body View</li>" +
 								"</ul>";
 				return { 
 						title: "Sidebar " + parseInt( Math.random() * 100 ).toString(), 

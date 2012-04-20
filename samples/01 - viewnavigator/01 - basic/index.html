@@ -40,15 +40,9 @@
 			
 			function getView() {
 				//create a view descriptor with random content
-				var bodyView = $('<div>' + Math.random().toString() + '<hr><li href="#" onclick="pushView()" class="backLinkButton">push view</li> <li href="#" onclick="popView()" class="backLinkButton">pop view</li><hr>' + getMeat() + '</div>');
+				var bodyView = $('<div>' + Math.random().toString() + '<hr><li href="#" onclick="pushView()" class="viewNavigator_backButton">push view</li> <li href="#" onclick="popView()" class="viewNavigator_backButton">pop view</li><hr>' + getMeat() + '</div>');
 				var links = bodyView.find('a');
 				
-				/*
-				for ( var i=0; i<links.length; i++)
-				{
-					NoClickDelay( links[i] );
-				}
-				*/
 				return { title: "Default View " + parseInt(Math.random()*1000), 
 						 backLabel: "Back",
 						 view:  bodyView

@@ -1,1 +1,1 @@
-This example is intended to be a phonegap application.
+This example is intended to be a phonegap application.   In a phone form factor the interface will use a ViewNavigator.   In a tablet form factor the interface will use a SplitViewNavigator.
