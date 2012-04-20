@@ -1,9 +1,4 @@
 .activityIndicator {
-	/*
-	The original height is:
-	height: 304px;
-	width: 305px;
-	*/
 	height: 40px;
 	width: 40px;
 	-webkit-background-size: 40px 40px;

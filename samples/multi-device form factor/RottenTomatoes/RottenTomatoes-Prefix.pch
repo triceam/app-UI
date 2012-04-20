@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'RottenTomatoes' target in the 'RottenTomatoes' project
+//
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+#endif

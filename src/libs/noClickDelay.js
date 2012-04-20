@@ -1,4 +1,7 @@
-//original source: http://cubiq.org/remove-onclick-delay-on-webkit-for-iphone
+/*!
+ * http://cubiq.org/remove-onclick-delay-on-webkit-for-iphone
+ * Released under MIT license, http://cubiq.org/license
+ */
 
 function NoClickDelay(el) {
 	this.element = typeof el == 'object' ? el : document.getElementById(el);
@@ -49,6 +52,3 @@ NoClickDelay.prototype = {
 		this.theTarget = undefined;
 	}
 };
-
-
-document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);

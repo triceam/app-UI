@@ -1,0 +1,20 @@
+app-UI
+--------------------------------------
+app-UI is a collection of user interface components that may be helpful to web and mobile developers for creating interactive applications using HTML and JavaScript, especially those targeting mobile devices.   
+
+app-UI has three application containers:
+
+*ViewNavigator* 
+
+*SplitViewNavigator*
+
+*SlidingView*
+
+
+Dependencies:
+The required dependencies are contained within this code repository, with links to the original files/sources.   Dependencies include:
+
+jQuery - http://jquery.com/
+jQuery Animate Enhanced - https://github.com/benbarnett/jQuery-Animate-Enhanced
+iScroll 4 - http://cubiq.org/iscroll-4
+NoClickDelay - http://cubiq.org/remove-onclick-delay-on-webkit-for-iphone
