@@ -69,21 +69,18 @@ ViewNavigator.prototype.pushView = function( viewDescriptor ) {
 
 ViewNavigator.prototype.popView = function() {
 
-	if ( this.history.length > 1 ) {
-		if (this.animating || this.history.length <= 1 )
-			return;
-		
-		var currentViewDescriptor = this.history[ this.history.length-1];
-		this.history.pop();	
-		
-		if ( currentViewDescriptor.backCallback ) {
-			currentViewDescriptor.backCallback();
-		}
-			
-		var viewDescriptor = this.history[ this.history.length-1 ];
-		viewDescriptor.animation = "popEffect"
-		this.updateView( viewDescriptor );
+	if (this.animating || this.history.length <= 1 )
+		return;
+	
+	var currentViewDescriptor = this.history[ this.history.length-1];
+	if ( currentViewDescriptor.backCallback ) {
+		currentViewDescriptor.backCallback();
 	}
+		
+	this.history.pop();	
+	var viewDescriptor = this.history[ this.history.length-1 ];
+	viewDescriptor.animation = "popEffect"
+	this.updateView( viewDescriptor );
 }
 
 ViewNavigator.prototype.setHeaderPadding = function( amount ) {

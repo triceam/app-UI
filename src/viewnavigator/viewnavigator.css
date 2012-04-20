@@ -61,8 +61,10 @@ body {
 
 	position:absolute;
 	top:12px;
-	left:0px;
-	right:0px;
+	left:0%;
+	right:0%;
+	margin-left:auto;
+	margin-right:auto;
 	text-align:center;
 	font-weight: bold;
 	color: #FFFFFF;
