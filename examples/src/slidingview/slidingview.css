@@ -1,0 +1,68 @@
+/*
+THIS SOFTWARE IS PROVIDED BY ANDREW M. TRICE ''AS IS'' AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL ANDREW M. TRICE OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+* {
+-webkit-touch-callout: none;
+-webkit-user-select: none;
+}
+
+input,
+textarea {
+	-webkit-touch-callout: auto;
+	-webkit-user-select: auto;
+}
+
+body {
+	position:absolute;
+	top:0px;
+	bottom:0px;
+	left:0px;
+	right:0px;
+	overflow: hidden;
+	padding: 0px;
+	margin: 0px;
+	background-color:#555;
+	overflow:hidden;
+}
+
+.slidingview_sidebar {
+	position:absolute;
+	width:250px;
+	left:0px;
+	top:0px;
+	bottom:0px;
+	transform: translate3d(0,0,0);
+	-webkit-transform: translate3d(0,0,0);
+	overflow:hidden;
+}
+
+.slidingview_body {
+	position:absolute;
+	left:0px;
+	top:0px;
+	bottom:0px;
+	transform: translate3d(0,0,0);
+	-webkit-transform: translate3d(0,0,0);
+	overflow:hidden;
+}
+
+
+.slidingview_wrapper {
+	position:absolute;
+	top:0px;
+	bottom:0px;
+	left:0px;
+	right:0px;
+	overflow: hidden;
+	padding: 0px;
+	margin: 0px;
+}
