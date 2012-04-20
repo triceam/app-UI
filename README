@@ -1,15 +1,50 @@
 app-UI
 --------------------------------------
-app-UI is a collection of user interface components that may be helpful to web and mobile developers for creating interactive applications using HTML and JavaScript, especially those targeting mobile devices.   
 
-app-UI has three application containers:
+app-UI is a collection of user interface components that may be helpful to web and mobile developers for creating interactive applications using HTML and JavaScript, especially those targeting mobile devices.  app-UI is a continual work in progress - it was born out of the necessity to have rich & native-feeling interfaces in HTML/JS experiences, and it works great with PhoneGap applications (http://www.phonegap.com).  app-UI can easily be styled/customized using CSS.
+
+Disclaimer: Please keep in mind that things will change as the project is improved and matured - this is a beta/early prototype.
+
+app-UI was created by Andrew Trice
+blog: http://tricedesigns.com
+twitter: https://twitter.com/#!/andytrice
+
+All of app-UI was created using HTML, CSS, & JavaScript.   All animations are rendered using CSS3 translate3d, so that they are hardware accelerated (where supported).  app-UI works well on iOS, Android and BlackBerry browsers (others not tested), and works well on most desktop browsers as well.
+
+--------------------------------------
+
+app-UI currently has three application containers:
 
 *ViewNavigator* 
+The ViewNavigator component allows you to create mobile experiences with an easily recognizable mobile UI paradigm.  You use this to push & pop views from the stack.
 
 *SplitViewNavigator*
+The SplitViewNavigator component allows you to create tablet experiences with an easily recognizable mobile UI paradigm.  The SplitViewNavigator allows you to have side-by-side content in the landscape orientation, and the sidebar is hidden in portrait orientation.
 
 *SlidingView*
+The SlidingView allows content to slide to the side using a horizontal swipe gesture, revealing a navigation container "underneath".   This is very similar to the behavior in Facebook's iPad application.
 
+--------------------------------------
+
+BUGS/FEATURES
+
+No software is ever bug-free.   If you encounter an issue, hvae feedback, or have feature requests, please log them at: https://github.com/triceam/app-UI/issues
+-OR-
+Fork it, fix it, and send me a pull request.  
+
+Please do not just complain.
+
+--------------------------------------
+
+REAL WORLD USAGE
+
+You can see this framework in the following real-world apps:
+
+US Census Browser: http://itunes.apple.com/us/app/us-census-browser/id483201717?mt=8 
+
+If you have built your own app using this framework, please let me know! (@andytrice on twitter)
+
+--------------------------------------
 
 Dependencies:
 The required dependencies are contained within this code repository, with links to the original files/sources.   Dependencies include:
@@ -18,3 +53,29 @@ jQuery - http://jquery.com/
 jQuery Animate Enhanced - https://github.com/benbarnett/jQuery-Animate-Enhanced
 iScroll 4 - http://cubiq.org/iscroll-4
 NoClickDelay - http://cubiq.org/remove-onclick-delay-on-webkit-for-iphone
+
+--------------------------------------
+
+LICENSE
+
+Copyright 2011 Andrew M. Trice. All rights reserved, except where otherwise noted.
+
+Redistribution and use in source and binary forms, with or without modification, are
+permitted provided that the following conditions are met:
+
+   1. Redistributions of source code must retain the above copyright notice, this list of
+      conditions and the following disclaimer.
+
+   2. Redistributions in binary form must reproduce the above copyright notice, this list
+      of conditions and the following disclaimer in the documentation and/or other materials
+      provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY ANDREW M. TRICE ''AS IS'' AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL ANDREW M. TRICE OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
