@@ -34,7 +34,7 @@ var SplitViewNavigator = function( target, toggleButtonLabel, backLinkCSS, bindT
 	
 	this.backLinkCSS = backLinkCSS ? backLinkCSS : "viewNavigator_backButton";
 	
-	this.toggleSidebarButton = $('<li class="viewNavigator_header_backlink viewNavigator_backButtonPosition ' + backLinkCSS + '" id="toggle' + this.uniqueId + '" onclick="window.splitViewNavigator.showSidebar()">'+toggleButtonLabel+'</li>');
+	this.toggleSidebarButton = $('<li class="viewNavigator_backButton viewNavigator_backButtonPosition ' + backLinkCSS + '" id="toggle' + this.uniqueId + '" onclick="window.splitViewNavigator.showSidebar()">'+toggleButtonLabel+'</li>');
 	
 	this.rootElement.append( this.bodyContainer );
 	this.rootElement.append( this.contentOverlay );
