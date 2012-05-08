@@ -229,12 +229,14 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
 ViewNavigator.prototype.resetScroller = function() {
     
     var id = this.contentViewHolder.attr( "id" );
+    var currentViewDescriptor = this.history[ this.history.length-1];
     
 	if ( !this.winPhone ) {
 		if ( this.scroller != null ) {
 			this.scroller.destroy();
+			this.scroller = null;
 		}
-		if ( id && !(this.currentViewDescriptor && this.currentViewDescriptor.scroll == false)) {
+		if ( id && !(currentViewDescriptor && currentViewDescriptor.scroll === false)) {
 			var self = this;
 			setTimeout( function() { self.scroller = new iScroll( id ); }, 10 );
 			//this.scroller = new iScroll( id );
@@ -259,11 +261,11 @@ ViewNavigator.prototype.animationCompleteHandler = function(removalTarget, heade
         self.resetScroller();
 		if ( removalTarget ) {
 			removalTarget.unbind( "click" );
-			removalTarget.remove();
+			removalTarget.detach();
 		}
 		if ( headerRemovalTarget ) {
 			headerRemovalTarget.unbind( "click" );
-			headerRemovalTarget.remove(); 
+			headerRemovalTarget.detach(); 
 		}
 	}
 }
