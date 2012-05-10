@@ -175,6 +175,8 @@ iScroll.prototype = {
 		switch(e.type) {
 			case START_EV:
 				if (!hasTouch && e.button !== 0) return;
+				var nodeName = e.target.nodeName.toUpperCase();
+				if (nodeName == "TEXTAREA" || nodeName == "INPUT" || nodeName == "SELECT" ) return;	
 				that._start(e);
 				break;
 			case MOVE_EV: that._move(e); break;
