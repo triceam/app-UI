@@ -16,7 +16,7 @@ var ViewNavigator = function( target, backLinkCSS, bindToWindow ) {
 	this.supportsBackKey = true; //phonegap on android only
 	this.animating = false;
 	this.animationX = 150;
-	this.animationDuration = 350;
+	this.animationDuration = 400;
 	this.history = [];
 	this.scroller = null;
 	this.headerPadding = 5;
@@ -104,6 +104,10 @@ ViewNavigator.prototype.setHeaderPadding = function( amount ) {
 ViewNavigator.prototype.updateView = function( viewDescriptor ) {
 	
 	this.animating = true;
+	
+    
+	
+	
 	this.contentPendingRemove = this.contentViewHolder;
 	this.headerContentPendingRemove = this.headerContent;
 	
@@ -126,9 +130,41 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
 	this.contentViewHolder.append( viewDescriptor.view );
 	this.resizeContent();
 	
+	if ( this.contentPendingRemove ){ 
+        this.contentPendingRemove.stop()
+	}
+	if ( this.headerContentPendingRemove ) {
+        this.headerContentPendingRemove.stop()
+	}
+	this.headerContent.stop()
+	this.contentViewHolder.stop()
+	
+	
+	
+	if ( this.scroller != null ) {
+	    var scrollY = this.scroller.y;
+        this.scroller.destroy();
+        this.scroller = null;
+        
+        if (this.contentPendingRemove) {
+            console.log( scrollY );
+            
+            //use this to mantain scroll position when scroller is destroyed
+            var children = $( this.contentPendingRemove.children()[0] );
+            children.attr( "scrollY", scrollY );
+            var originalTopMargin = children.css( "margin-top" );
+            children.attr( "originalTopMargin", originalTopMargin );
+            
+            var cssString = "translate3d(0px, "+(parseInt( scrollY ) + parseInt( originalTopMargin )).toString()+"px, 0px)";
+            children.css( "-webkit-transform", cssString );
+            
+           // children.css( "margin-top", (parseInt( scrollY ) + parseInt( originalTopMargin )).toString() + "px" );
+        } 
+    }
 	
 	$(this.contentPendingRemove).click(function(){ return false; });
 	
+    
 	if ( viewDescriptor.animation == "popEffect" ) {
 		
 		this.contentViewHolder.css( "left", -this.contentViewHolder.width() );
@@ -142,18 +178,16 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
     	
  	   	this.contentPendingRemove.animate({
    	 			left:this.contentViewHolder.width(),
-    			opacity:1,
     			avoidTransforms:false,
     			useTranslate3d: true
-    		}, this.animationDuration, this.animationCompleteHandler(this.contentPendingRemove, this.headerContentPendingRemove, this.headerContent, this.contentViewHolder ));
+    		}, this.animationDuration*0.8);
     		
     	//remove this to change back
  	   	this.contentViewHolder.animate({
    	 			left:0,
-    			opacity:1,
     			avoidTransforms:false,
     			useTranslate3d: true
-    		}, this.animationDuration);
+    		}, this.animationDuration/2);
     		
     	this.headerContentPendingRemove.animate({
    	 			left:this.animationX,
@@ -167,7 +201,12 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
     			opacity:1,
     			avoidTransforms:false,
     			useTranslate3d: true
-    		}, this.animationDuration );
+    		}, this.animationDuration/2 );
+    		
+    	
+    	//using a timeout to get around inconsistent response times for webkittransitionend event
+        var func = this.animationCompleteHandler(this.contentPendingRemove, this.headerContentPendingRemove, this.headerContent, this.contentViewHolder );
+    	setTimeout( func, this.animationDuration+90 );
 	}
 	else if ( this.history.length > 1 ) {
 	
@@ -182,14 +221,12 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
 
  	   	this.contentViewHolder.animate({
    	 			left:0,
-    			opacity:1,
     			avoidTransforms:false,
     			useTranslate3d: true
-    		}, this.animationDuration, this.animationCompleteHandler(this.contentPendingRemove, this.headerContentPendingRemove, this.headerContent, this.contentViewHolder ));
+    		}, this.animationDuration*0.75);
     	
  	   	this.contentPendingRemove.animate({
-   	 			left:-this.contentViewHolder.width(),
-    			opacity:1,
+   	 			left:-this.contentViewHolder.width()/2,
     			avoidTransforms:false,
     			useTranslate3d: true
     		}, this.animationDuration);
@@ -199,7 +236,7 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
     			opacity:1,
     			avoidTransforms:false,
     			useTranslate3d: true
-    		}, this.animationDuration );
+    		}, this.animationDuration*0.75);
     		
     	this.headerContentPendingRemove.animate({
    	 			left:-this.animationX,
@@ -207,6 +244,10 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
     			avoidTransforms:false,
     			useTranslate3d: true
     		}, this.animationDuration );
+    		
+    	//using a timeout to get around inconsistent response times for webkittransitionend event
+    	var func = this.animationCompleteHandler(this.contentPendingRemove, this.headerContentPendingRemove, this.headerContent, this.contentViewHolder );
+    	setTimeout( func, this.animationDuration+90 );
 	}
 	else {
 		this.contentViewHolder.css( "left", 0 );
@@ -238,7 +279,23 @@ ViewNavigator.prototype.resetScroller = function() {
 		}
 		if ( id && !(currentViewDescriptor && currentViewDescriptor.scroll === false)) {
 			var self = this;
-			setTimeout( function() { self.scroller = new iScroll( id ); }, 10 );
+			setTimeout( function() { 
+			    
+                //use this to mantain scroll position when scroller is destroyed
+                var targetDiv = $( $("#"+id ).children()[0] );
+                var scrollY= targetDiv.attr( "scrollY" );
+                var originalTopMargin = targetDiv.attr( "originalTopMargin" );
+                if ( scrollY != undefined && scrollY != "" ){
+                    console.log( "resetScroller scrollY: " + scrollY)
+                  //  targetDiv.css( "margin-top", originalTopMargin );
+                    var cssString = "translate3d(0px, "+(originalTopMargin).toString()+"px, 0px)";
+                    targetDiv.css( "-webkit-transform", cssString );
+                }
+			    self.scroller = new iScroll( id ); 
+			    if ( scrollY != undefined && scrollY != "" ) {
+			        self.scroller.scrollTo( 0, parseInt( scrollY ) );
+			    }
+			}, 10 );
 			//this.scroller = new iScroll( id );
 		}
     }

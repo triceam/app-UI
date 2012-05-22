@@ -10,7 +10,6 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVE
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-
 * {
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
@@ -35,19 +34,15 @@ body {
 }
 
 .viewNavigator_root {
-	position:absolute;
-	top:0px;
-	bottom:0px;
-	left:0px;
-	right:0px;
+	width:100%;
+	height:100%;
 	background-color:666666;
+	overflow:hidden;
 }
 
 .viewNavigator_header {
 	position:absolute;
-	top:0px;
-	left:0px;
-	right:0px;
+	width:100%;
 	height:46px;
 	overflow:hide;
 	padding:0px;
@@ -60,6 +55,7 @@ body {
 	background: -ms-linear-gradient(top, rgba(167,207,223,1) 0%,rgba(35,83,138,1) 100%); /* IE10+ */
 	background: linear-gradient(top, rgba(167,207,223,1) 0%,rgba(35,83,138,1) 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a7cfdf', endColorstr='#23538a',GradientType=0 ); /* IE6-9 */
+	
 }
 
 .viewNavigator_header_backlink {
@@ -97,9 +93,12 @@ body {
 
 .viewNavigator_headerContent {
 
+    backface-visibility: hidden;
 	-webkit-backface-visibility: hidden;
+	
 	transform: translate3d(0,0,0);
 	-webkit-transform: translate3d(0,0,0);
+
 	position:absolute;
 }
 
@@ -110,15 +109,28 @@ body {
 	right:0px;
 	bottom:0px;
 	overflow:hidden;
+	
+   backface-visibility: hidden;
 	-webkit-backface-visibility: hidden;
-	transform: translate3d(0,0,0);
-	-webkit-transform: translate3d(0,0,0);
+    -webkit-transform:translate3d(0,0,0);
 }
 
+
+/* ANDROID BUG WORKAROUND */
+.viewNavigator_content select {
+	overflow:auto;
+	position:relative;
+    backface-visibility: auto;
+	-webkit-backface-visibility: auto;
+}
+
+/*
 .viewNavigator_content div {
 
-  -webkit-transform: translate3d(0,0,0);
-}
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
+    -webkit-transform: translate3d(0,0,0);
+}*/
 
 .viewNavigator_contentHolder {
 	position:absolute;
@@ -134,10 +146,16 @@ body {
 	-webkit-overflow-scrolling : touch;
 	min-width:100%;
 	min-height:100%
+
+    backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+
 }
 
 .viewNavigator_backface {
+/*    backface-visibility: hidden;
 	-webkit-backface-visibility: hidden;
+*/
 }
 
 .viewNavigator_backButtonPosition {
