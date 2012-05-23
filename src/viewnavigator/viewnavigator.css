@@ -27,10 +27,16 @@ body {
 	top:0px;
 	bottom:0px;
 	left:0px;
-	right:0px;
+	right:0px; 
 	overflow: hidden;
 	padding: 0px;
 	margin: 0px;
+	
+    backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+	
+	transform: translate3d(0,0,0);
+	-webkit-transform: translate3d(0,0,0);
 }
 
 .viewNavigator_root {
@@ -56,6 +62,11 @@ body {
 	background: linear-gradient(top, rgba(167,207,223,1) 0%,rgba(35,83,138,1) 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a7cfdf', endColorstr='#23538a',GradientType=0 ); /* IE6-9 */
 	
+    backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+	
+	transform: translate3d(0,0,0);
+	-webkit-transform: translate3d(0,0,0);
 }
 
 .viewNavigator_header_backlink {
@@ -110,9 +121,11 @@ body {
 	bottom:0px;
 	overflow:hidden;
 	
-   backface-visibility: hidden;
+    backface-visibility: hidden;
 	-webkit-backface-visibility: hidden;
-    -webkit-transform:translate3d(0,0,0);
+	
+	transform: translate3d(0,0,0);
+	-webkit-transform: translate3d(0,0,0);
 }
 
 
@@ -124,13 +137,13 @@ body {
 	-webkit-backface-visibility: auto;
 }
 
-/*
+
 .viewNavigator_content div {
 
     backface-visibility: visible;
     -webkit-backface-visibility: visible;
     -webkit-transform: translate3d(0,0,0);
-}*/
+}
 
 .viewNavigator_contentHolder {
 	position:absolute;
@@ -149,6 +162,9 @@ body {
 
     backface-visibility: hidden;
 	-webkit-backface-visibility: hidden;
+	
+	transform: translate3d(0,0,0);
+	-webkit-transform: translate3d(0,0,0);
 
 }
 

@@ -147,7 +147,7 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
         this.scroller = null;
         
         if (this.contentPendingRemove) {
-            console.log( scrollY );
+            //console.log( scrollY );
             
             //use this to mantain scroll position when scroller is destroyed
             var children = $( this.contentPendingRemove.children()[0] );
@@ -286,7 +286,7 @@ ViewNavigator.prototype.resetScroller = function() {
                 var scrollY= targetDiv.attr( "scrollY" );
                 var originalTopMargin = targetDiv.attr( "originalTopMargin" );
                 if ( scrollY != undefined && scrollY != "" ){
-                    console.log( "resetScroller scrollY: " + scrollY)
+                  //  console.log( "resetScroller scrollY: " + scrollY)
                   //  targetDiv.css( "margin-top", originalTopMargin );
                     var cssString = "translate3d(0px, "+(originalTopMargin).toString()+"px, 0px)";
                     targetDiv.css( "-webkit-transform", cssString );
