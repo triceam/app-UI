@@ -147,7 +147,7 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
         this.scroller = null;
         
         if (this.contentPendingRemove) {
-            console.log( scrollY );
+            //console.log( scrollY );
             
             //use this to mantain scroll position when scroller is destroyed
             var children = $( this.contentPendingRemove.children()[0] );
@@ -175,6 +175,7 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
 		this.headerContent.css( "opacity", 0 );
 		this.header.append( this.headerContent );
     	
+    	var func = this.animationCompleteHandler(this.contentPendingRemove, this.headerContentPendingRemove, this.headerContent, this.contentViewHolder );
     	
  	   	this.contentPendingRemove.animate({
    	 			left:this.contentViewHolder.width(),
@@ -194,7 +195,7 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
     			opacity:0,
     			avoidTransforms:false,
     			useTranslate3d: true
-    		}, this.animationDuration );
+    		}, this.animationDuration, func );
     		
     	this.headerContent.animate({
    	 			left:0,
@@ -205,8 +206,8 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
     		
     	
     	//using a timeout to get around inconsistent response times for webkittransitionend event
-        var func = this.animationCompleteHandler(this.contentPendingRemove, this.headerContentPendingRemove, this.headerContent, this.contentViewHolder );
-    	setTimeout( func, this.animationDuration+90 );
+        //var func = this.animationCompleteHandler(this.contentPendingRemove, this.headerContentPendingRemove, this.headerContent, this.contentViewHolder );
+    	//setTimeout( func, this.animationDuration+90 );
 	}
 	else if ( this.history.length > 1 ) {
 	
@@ -219,6 +220,8 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
 		this.headerContent.css( "opacity", 0 );
 		this.header.append( this.headerContent );
 
+        var func = this.animationCompleteHandler(this.contentPendingRemove, this.headerContentPendingRemove, this.headerContent, this.contentViewHolder );
+
  	   	this.contentViewHolder.animate({
    	 			left:0,
     			avoidTransforms:false,
@@ -229,7 +232,7 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
    	 			left:-this.contentViewHolder.width()/2,
     			avoidTransforms:false,
     			useTranslate3d: true
-    		}, this.animationDuration);
+    		}, this.animationDuration, func);
     		
     	this.headerContent.animate({
    	 			left:0,
@@ -246,8 +249,8 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
     		}, this.animationDuration );
     		
     	//using a timeout to get around inconsistent response times for webkittransitionend event
-    	var func = this.animationCompleteHandler(this.contentPendingRemove, this.headerContentPendingRemove, this.headerContent, this.contentViewHolder );
-    	setTimeout( func, this.animationDuration+90 );
+    	//var func = this.animationCompleteHandler(this.contentPendingRemove, this.headerContentPendingRemove, this.headerContent, this.contentViewHolder );
+    	//setTimeout( func, this.animationDuration+90 );
 	}
 	else {
 		this.contentViewHolder.css( "left", 0 );
@@ -262,8 +265,23 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
 	}
 	
     if ( viewDescriptor.backLabel ) {
-    	//new NoClickDelay( this.headerBacklink.get()[0] );
+    	new NoClickDelay( this.headerBacklink.get()[0] );
 	}
+	
+	if ( viewDescriptor.showCallback ) {
+	    viewDescriptor.showCallback();
+	}
+}
+
+
+ViewNavigator.prototype.destroyScroller = function() {
+  
+	if ( !this.winPhone ) {
+		if ( this.scroller != null ) {
+			this.scroller.destroy();
+			this.scroller = null;
+		}
+    }
 }
 
 
@@ -271,32 +289,35 @@ ViewNavigator.prototype.resetScroller = function() {
     
     var id = this.contentViewHolder.attr( "id" );
     var currentViewDescriptor = this.history[ this.history.length-1];
+    this.destroyScroller();
     
 	if ( !this.winPhone ) {
-		if ( this.scroller != null ) {
-			this.scroller.destroy();
-			this.scroller = null;
-		}
-		if ( id && !(currentViewDescriptor && currentViewDescriptor.scroll === false)) {
+		if ( id && !(currentViewDescriptor && currentViewDescriptor.scroll == false)) {
 			var self = this;
-			setTimeout( function() { 
-			    
-                //use this to mantain scroll position when scroller is destroyed
-                var targetDiv = $( $("#"+id ).children()[0] );
-                var scrollY= targetDiv.attr( "scrollY" );
-                var originalTopMargin = targetDiv.attr( "originalTopMargin" );
-                if ( scrollY != undefined && scrollY != "" ){
-                    console.log( "resetScroller scrollY: " + scrollY)
-                  //  targetDiv.css( "margin-top", originalTopMargin );
-                    var cssString = "translate3d(0px, "+(originalTopMargin).toString()+"px, 0px)";
-                    targetDiv.css( "-webkit-transform", cssString );
-                }
-			    self.scroller = new iScroll( id ); 
-			    if ( scrollY != undefined && scrollY != "" ) {
-			        self.scroller.scrollTo( 0, parseInt( scrollY ) );
-			    }
-			}, 10 );
-			//this.scroller = new iScroll( id );
+			if ( this.touchEnabled ){
+                setTimeout( function() { 
+                    
+                    //use this to mantain scroll position when scroller is destroyed
+                    var targetDiv = $( $("#"+id ).children()[0] );
+                    var scrollY= targetDiv.attr( "scrollY" );
+                    var originalTopMargin = targetDiv.attr( "originalTopMargin" );
+                    if ( currentViewDescriptor.maintainScrollPosition !== false && scrollY != undefined && scrollY != "" ){
+                      //  console.log( "resetScroller scrollY: " + scrollY)
+                      //  targetDiv.css( "margin-top", originalTopMargin );
+                        var cssString = "translate3d(0px, "+(originalTopMargin).toString()+"px, 0px)";
+                        targetDiv.css( "-webkit-transform", cssString );
+                    }
+                    self.scroller = new iScroll( id ); 
+                    if ( currentViewDescriptor.maintainScrollPosition !== false && scrollY != undefined && scrollY != "" ) {
+                        self.scroller.scrollTo( 0, parseInt( scrollY ) );
+                    }
+                }, 10 );
+                //this.scroller = new iScroll( id );
+			} 
+			else {
+			    var target = $("#"+id );
+			    target.css( "overflow", "auto" );
+			}
 		}
     }
 }
