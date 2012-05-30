@@ -267,36 +267,50 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
 }
 
 
-ViewNavigator.prototype.resetScroller = function() {
-    
-    var id = this.contentViewHolder.attr( "id" );
-    var currentViewDescriptor = this.history[ this.history.length-1];
-    
+ViewNavigator.prototype.destroyScroller = function() {
+  
 	if ( !this.winPhone ) {
 		if ( this.scroller != null ) {
 			this.scroller.destroy();
 			this.scroller = null;
 		}
-		if ( id && !(currentViewDescriptor && currentViewDescriptor.scroll === false)) {
+    }
+}
+
+
+ViewNavigator.prototype.resetScroller = function() {
+    
+    var id = this.contentViewHolder.attr( "id" );
+    var currentViewDescriptor = this.history[ this.history.length-1];
+    this.destroyScroller();
+    
+	if ( !this.winPhone ) {
+		if ( id && !(currentViewDescriptor && currentViewDescriptor.scroll == false)) {
 			var self = this;
-			setTimeout( function() { 
-			    
-                //use this to mantain scroll position when scroller is destroyed
-                var targetDiv = $( $("#"+id ).children()[0] );
-                var scrollY= targetDiv.attr( "scrollY" );
-                var originalTopMargin = targetDiv.attr( "originalTopMargin" );
-                if ( scrollY != undefined && scrollY != "" ){
-                  //  console.log( "resetScroller scrollY: " + scrollY)
-                  //  targetDiv.css( "margin-top", originalTopMargin );
-                    var cssString = "translate3d(0px, "+(originalTopMargin).toString()+"px, 0px)";
-                    targetDiv.css( "-webkit-transform", cssString );
-                }
-			    self.scroller = new iScroll( id ); 
-			    if ( scrollY != undefined && scrollY != "" ) {
-			        self.scroller.scrollTo( 0, parseInt( scrollY ) );
-			    }
-			}, 10 );
-			//this.scroller = new iScroll( id );
+			if ( this.touchEnabled ){
+                setTimeout( function() { 
+                    
+                    //use this to mantain scroll position when scroller is destroyed
+                    var targetDiv = $( $("#"+id ).children()[0] );
+                    var scrollY= targetDiv.attr( "scrollY" );
+                    var originalTopMargin = targetDiv.attr( "originalTopMargin" );
+                    if ( currentViewDescriptor.maintainScrollPosition !== false && scrollY != undefined && scrollY != "" ){
+                      //  console.log( "resetScroller scrollY: " + scrollY)
+                      //  targetDiv.css( "margin-top", originalTopMargin );
+                        var cssString = "translate3d(0px, "+(originalTopMargin).toString()+"px, 0px)";
+                        targetDiv.css( "-webkit-transform", cssString );
+                    }
+                    self.scroller = new iScroll( id ); 
+                    if ( currentViewDescriptor.maintainScrollPosition !== false && scrollY != undefined && scrollY != "" ) {
+                        self.scroller.scrollTo( 0, parseInt( scrollY ) );
+                    }
+                }, 10 );
+                //this.scroller = new iScroll( id );
+			} 
+			else {
+			    var target = $("#"+id );
+			    target.css( "overflow", "auto" );
+			}
 		}
     }
 }
