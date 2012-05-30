@@ -138,6 +138,13 @@ body {
 }
 
 
+
+.viewNavigator_contentHolder > div:first-child {
+    min-height:100%;
+    border-bottom:1px solid #444;
+    border-top:1px solid #444;
+}
+
 .viewNavigator_content div {
 
     backface-visibility: visible;
