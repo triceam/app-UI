@@ -294,7 +294,7 @@ ViewNavigator.prototype.resetScroller = function() {
 	if ( !this.winPhone ) {
 		if ( id && !(currentViewDescriptor && currentViewDescriptor.scroll == false)) {
 			var self = this;
-			if ( this.touchEnabled ){
+			if ( 'ontouchstart' in window ){
                 setTimeout( function() { 
                     
                     //use this to mantain scroll position when scroller is destroyed
