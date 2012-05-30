@@ -175,6 +175,7 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
 		this.headerContent.css( "opacity", 0 );
 		this.header.append( this.headerContent );
     	
+    	var func = this.animationCompleteHandler(this.contentPendingRemove, this.headerContentPendingRemove, this.headerContent, this.contentViewHolder );
     	
  	   	this.contentPendingRemove.animate({
    	 			left:this.contentViewHolder.width(),
@@ -194,7 +195,7 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
     			opacity:0,
     			avoidTransforms:false,
     			useTranslate3d: true
-    		}, this.animationDuration );
+    		}, this.animationDuration, func );
     		
     	this.headerContent.animate({
    	 			left:0,
@@ -205,8 +206,8 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
     		
     	
     	//using a timeout to get around inconsistent response times for webkittransitionend event
-        var func = this.animationCompleteHandler(this.contentPendingRemove, this.headerContentPendingRemove, this.headerContent, this.contentViewHolder );
-    	setTimeout( func, this.animationDuration+90 );
+        //var func = this.animationCompleteHandler(this.contentPendingRemove, this.headerContentPendingRemove, this.headerContent, this.contentViewHolder );
+    	//setTimeout( func, this.animationDuration+90 );
 	}
 	else if ( this.history.length > 1 ) {
 	
@@ -219,6 +220,8 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
 		this.headerContent.css( "opacity", 0 );
 		this.header.append( this.headerContent );
 
+        var func = this.animationCompleteHandler(this.contentPendingRemove, this.headerContentPendingRemove, this.headerContent, this.contentViewHolder );
+
  	   	this.contentViewHolder.animate({
    	 			left:0,
     			avoidTransforms:false,
@@ -229,7 +232,7 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
    	 			left:-this.contentViewHolder.width()/2,
     			avoidTransforms:false,
     			useTranslate3d: true
-    		}, this.animationDuration);
+    		}, this.animationDuration, func);
     		
     	this.headerContent.animate({
    	 			left:0,
@@ -246,8 +249,8 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
     		}, this.animationDuration );
     		
     	//using a timeout to get around inconsistent response times for webkittransitionend event
-    	var func = this.animationCompleteHandler(this.contentPendingRemove, this.headerContentPendingRemove, this.headerContent, this.contentViewHolder );
-    	setTimeout( func, this.animationDuration+90 );
+    	//var func = this.animationCompleteHandler(this.contentPendingRemove, this.headerContentPendingRemove, this.headerContent, this.contentViewHolder );
+    	//setTimeout( func, this.animationDuration+90 );
 	}
 	else {
 		this.contentViewHolder.css( "left", 0 );
@@ -262,7 +265,11 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
 	}
 	
     if ( viewDescriptor.backLabel ) {
-    	//new NoClickDelay( this.headerBacklink.get()[0] );
+    	new NoClickDelay( this.headerBacklink.get()[0] );
+	}
+	
+	if ( viewDescriptor.showCallback ) {
+	    viewDescriptor.showCallback();
 	}
 }
 
