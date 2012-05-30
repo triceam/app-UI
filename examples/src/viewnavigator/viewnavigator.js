@@ -396,4 +396,4 @@ $(document).ready(function() {
 	
 	$(document).bind( "touchmove", function (e) { e.preventDefault(); return false; } );
 	
-}
+});
