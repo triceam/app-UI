@@ -294,7 +294,7 @@ ViewNavigator.prototype.resetScroller = function() {
 	if ( !this.winPhone ) {
 		if ( id && !(currentViewDescriptor && currentViewDescriptor.scroll == false)) {
 			var self = this;
-			if ( this.touchEnabled ){
+			if ( 'ontouchstart' in window ){
                 setTimeout( function() { 
                     
                     //use this to mantain scroll position when scroller is destroyed
@@ -392,4 +392,4 @@ function onBackKey( event ) {
 
 	
 //block page scrolling
-window.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
