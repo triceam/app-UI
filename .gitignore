@@ -2,3 +2,27 @@
 src/.DS_Store
 
 src/libs/.DS_Store
+
+.idea/.name
+
+.idea/app-UI.iml
+
+.idea/encodings.xml
+
+.idea/misc.xml
+
+.idea/modules.xml
+
+.idea/scopes/scope_settings.xml
+
+.idea/vcs.xml
+
+.idea/workspace.xml
+
+examples/samples/.DS_Store
+
+examples/samples/03 - slidingView/.DS_Store
+
+samples/.DS_Store
+
+.DS_Store
