@@ -139,6 +139,8 @@ SlidingView.prototype.updateBasedOnTouchPoints = function( currentPosition ) {
 			}, 100);
 	}*/
 	
+	this.sidebar.trigger( "slidingViewProgress", { current: targetX, max:this.sidebarWidth } );
+	
 	this.gestureStartPosition = currentPosition;
 }
 
@@ -166,6 +168,8 @@ SlidingView.prototype.snapToPosition = function() {
 				avoidTransforms:false,
 				useTranslate3d: true
 			}, 100);
+			
+	    this.sidebar.trigger( "slidingViewProgress", { current:targetX, max:this.sidebarWidth } );
 	}
 }
 
