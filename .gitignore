@@ -4,3 +4,21 @@ examples/samples/.DS_Store
 examples/samples/03 - slidingView/.DS_Store
 
 src/.DS_Store
+
+.idea/.name
+
+*.iml
+
+.idea/encodings.xml
+
+.idea/misc.xml
+
+.idea/modules.xml
+
+.idea/scopes/scope_settings.xml
+
+.idea/vcs.xml
+
+.idea/workspace.xml
+
+samples/.DS_Store
