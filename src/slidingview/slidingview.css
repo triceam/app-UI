@@ -11,57 +11,71 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 * {
--webkit-touch-callout: none;
--webkit-user-select: none;
+	-webkit-touch-callout: none;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
-input,
-textarea {
+input,textarea {
 	-webkit-touch-callout: auto;
+
 	-webkit-user-select: auto;
+	-moz-user-select: auto;
+	-ms-user-select: auto;
+	user-select: auto;
 }
 
 body {
-	position:absolute;
-	top:0px;
-	bottom:0px;
-	left:0px;
-	right:0px;
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
 	overflow: hidden;
 	padding: 0px;
 	margin: 0px;
-	background-color:#555;
-	overflow:hidden;
+	background-color: #555;
+	overflow: hidden;
 }
 
 .slidingview_sidebar {
-	position:absolute;
-	width:250px;
-	left:0px;
-	top:0px;
-	bottom:0px;
-	transform: translate3d(0,0,0);
+	position: absolute;
+	width: 250px;
+	left: 0px;
+	top: 0px;
+	bottom: 0px;
+
 	-webkit-transform: translate3d(0,0,0);
-	overflow:hidden;
+	-moz-transform: translate3d(0,0,0);
+	-o-transform: translate3d(0,0,0);
+	-ms-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+	overflow: hidden;
 }
 
 .slidingview_body {
-	position:absolute;
-	left:0px;
-	top:0px;
-	bottom:0px;
-	transform: translate3d(0,0,0);
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	bottom: 0px;
+
 	-webkit-transform: translate3d(0,0,0);
-	overflow:hidden;
+	-moz-transform: translate3d(0,0,0);
+	-o-transform: translate3d(0,0,0);
+	-ms-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+	overflow: hidden;
 }
 
-
 .slidingview_wrapper {
-	position:absolute;
-	top:0px;
-	bottom:0px;
-	left:0px;
-	right:0px;
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
 	overflow: hidden;
 	padding: 0px;
 	margin: 0px;
