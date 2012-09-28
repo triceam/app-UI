@@ -10,8 +10,7 @@ require([
   'lib/app-UI/src/splitviewnavigator/splitviewnavigator',
   'lib/app-UI/src/slidingview/slidingview'
 ],
-function(require) {
-
+function() {
   return {
     ViewNavigator: window.ViewNavigator,
     SplitViewNavigator: window.SplitViewNavigator,
