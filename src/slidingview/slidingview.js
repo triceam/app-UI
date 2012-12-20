@@ -182,6 +182,7 @@ SlidingView.prototype.close = function() {
 }
 
 SlidingView.prototype.open = function() {
+    if(this.bodyOffset == this.sidebarWidth) return;
     this.bodyOffset = this.sidebarWidth;
     this.slideView(this.sidebarWidth);
 }
