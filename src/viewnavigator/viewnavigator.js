@@ -311,7 +311,18 @@ ViewNavigator.prototype.resetScroller = function() {
 						var cssString = 'translate3d(0px, '+(originalTopMargin).toString()+'px, 0px)';
 						targetDiv.css( '-webkit-transform', cssString );
 					}
-					self.scroller = new iScroll( id );
+					self.scroller = new iScroll( id , {
+						useTransition: true,
+						onBeforeScrollStart: function (e) {
+							var target = e.target;
+							while ( target.nodeType != 1 ) target = target.parentNode;
+
+							if ( target.tagName !== 'SELECT' && target.tagName !== 'INPUT' && target.tagName !== 'TEXTAREA' ) {
+								e.preventDefault();
+							}
+						}
+					});
+
 					if ( currentViewDescriptor.maintainScrollPosition !== false && scrollY != undefined && scrollY != '' ) {
 						self.scroller.scrollTo( 0, parseInt( scrollY, 10 ) );
 					}
