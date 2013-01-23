@@ -11,7 +11,15 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-var ViewNavigator = function( target, backLinkCSS, bindToWindow ) {
+var ViewNavigator = function( target, options ) {
+
+	var defaults = {
+		CSSNamespace: 'viewNavigator_',
+		backLinkCSS: 'viewNavigator_backButton',
+		bindToWindow: true
+	};
+
+	this.options = options = $.extend( {}, defaults, options );
 
 	this.supportsBackKey = true; //phonegap on android only
 	this.animating = false;
@@ -26,22 +34,20 @@ var ViewNavigator = function( target, backLinkCSS, bindToWindow ) {
 	var regexp = new RegExp('Windows Phone OS 7');
 	this.winPhone = (navigator.userAgent.search(regexp) >= 0);
 
-	this.rootElement = $('<div class="viewNavigator_root"></div>');
-	this.header = $('<div class="viewNavigator_header"></div>');
-	this.content = $('<div class="viewNavigator_content" id="contentRoot"></div>');
+	this.rootElement = $('<div class="' + this.options.CSSNamespace + 'root"></div>');
+	this.header = $('<div class="' + options.CSSNamespace + 'header"></div>');
+	this.content = $('<div class="' + options.CSSNamespace + 'content" id="contentRoot"></div>');
 	this.rootElement.append( this.header );
 	this.rootElement.append( this.content );
 
 	this.parent = $( target );
-
-	this.backLinkCSS = backLinkCSS ? backLinkCSS : 'viewNavigator_backButton';
 
 	var self = this;
 	//$(window).resize( function(event){ self.resizeContent() } );
 	//alert( this.parent.toString() );
 	//this.parent.resize( function(event){ self.resizeContent() } );
 
-	if ( bindToWindow != false ) {
+	if ( options.bindToWindow != false ) {
 		$(window).resize( function(event){ self.resizeContent() } );
 	}
 	else {
@@ -106,19 +112,17 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
 	this.animating = true;
 
 
-
-
 	this.contentPendingRemove = this.contentViewHolder;
 	this.headerContentPendingRemove = this.headerContent;
 
-	this.headerContent = $('<div class="viewNavigator_headerContent"></div>');
+	this.headerContent = $('<div class="' + this.options.CSSNamespace + 'headerContent"></div>');
 
-	this.headerTitle = $('<div class="viewNavigator_header_title">' + viewDescriptor.title + '</div>');
+	this.headerTitle = $('<div class="' + this.options.CSSNamespace + 'header_title">' + viewDescriptor.title + '</div>');
 	this.headerContent.append( this.headerTitle );
 
 	var linkGuid = this.guid();
 	if ( viewDescriptor.backLabel ) {
-		this.headerBacklink = $('<li class="viewNavigator_header_backlink viewNavigator_backButtonPosition ' + this.backLinkCSS +'" id="link' + linkGuid + '" onclick="window.viewNavigators[\'' + this.uniqueId + '\'].popView()">'+ viewDescriptor.backLabel + '</li>');
+		this.headerBacklink = $('<li class="' + this.options.CSSNamespace + 'header_backlink ' + this.options.CSSNamespace + 'backButtonPosition ' + this.options.backLinkCSS +'" id="link' + linkGuid + '" onclick="window.viewNavigators[\'' + this.uniqueId + '\'].popView()">'+ viewDescriptor.backLabel + '</li>');
 		this.headerContent.append( this.headerBacklink );
 
 		//this is for proper handling in splitviewnavigator
@@ -126,7 +130,7 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
 	}
 
 	var id = this.guid();
-	this.contentViewHolder = $('<div class="viewNavigator_contentHolder" id="' + id + '"></div>');
+	this.contentViewHolder = $('<div class="' + this.options.CSSNamespace + 'contentHolder" id="' + id + '"></div>');
 	this.contentViewHolder.append( viewDescriptor.view );
 	this.resizeContent();
 

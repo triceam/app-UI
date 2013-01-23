@@ -1,106 +1,106 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
 	<head>
-    	<title>Sliding View Sample</title>
-    	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>Sliding View Sample</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    	<script src="../../../src/libs/jquery-1.7.1.js"></script>
-    	<script src="../../../src/libs/jquery.animate-enhanced.js"></script>
-    	
-    	<link rel="stylesheet" href="../../../src/slidingview/slidingview.css" type="text/css" />
-    	<script src="../../../src/slidingview/slidingview.js"></script>
-    	<script src="../../../src/libs/oriDomi.js"></script>
+		<script src="../../../src/libs/jquery-1.7.1.js"></script>
+		<script src="../../../src/libs/jquery.animate-enhanced.js"></script>
+
+		<link rel="stylesheet" href="../../../src/slidingview/slidingview.css" type="text/css" />
+		<script src="../../../src/slidingview/slidingview.js"></script>
+		<script src="../../../src/libs/oriDomi.js"></script>
 
 
 		<script>
-            
-            var sv;
+
+			var sv;
 			$(document).ready( function() {
-				
+
 				//Setup the ViewNavigator
-				sv = new SlidingView( 'sidebar', 'body' );	
+				sv = new SlidingView( 'sidebar', 'body' );
 				sv.sidebarWidth = 420;
 				sv.sidebar.oriDomi({ hPanels: 1, vPanels: 2, speed:1, perspective:800, shadingIntensity:4 });
 				sv.sidebar.oriDomi( 'accordion', 90 );
 				sv.sidebar.bind( "slidingViewProgress", function(event, data) {
-				    
-				    var fudge = 1
-				    var half = data.max/2;
-				    if ( data.current < half ) {
-				        fudge = (data.current)/half
-				    } else if ( data.current > half ) {
-				        fudge = (half-(data.current-half))/half
-				    }
-				    fudge *= 15
-				    
-				    var angle = 90-((90*(data.current/data.max)));
-				    //console.log( (angle+fudge) );
-				    
-				    if ( (angle+fudge) > 0 ) {
-				    
-    				    sv.sidebar.oriDomi( 'restoreOriDomi' );
-    				    sv.sidebar.oriDomi( 'accordion', (angle+fudge) );
-                    }
-                    else {
-    				    sv.sidebar.oriDomi( 'restoreDOM' );
-                    }
+
+					var fudge = 1
+					var half = data.max/2;
+					if ( data.current < half ) {
+						fudge = (data.current)/half
+					} else if ( data.current > half ) {
+						fudge = (half-(data.current-half))/half
+					}
+					fudge *= 15
+
+					var angle = 90-((90*(data.current/data.max)));
+					//console.log( (angle+fudge) );
+
+					if ( (angle+fudge) > 0 ) {
+
+						sv.sidebar.oriDomi( 'restoreOriDomi' );
+						sv.sidebar.oriDomi( 'accordion', (angle+fudge) );
+					}
+					else {
+						sv.sidebar.oriDomi( 'restoreDOM' );
+					}
 				});
 			} );
-			
+
 			function sidebarClick() {
-			    var color = '#' + parseInt(Math.random()*0xFFFFFF).toString(16);
-			    console.log(color);
-			    $('#sidebar').css('color', color );
+				var color = '#' + parseInt(Math.random()*0xFFFFFF).toString(16);
+				console.log(color);
+				$('#sidebar').css('color', color );
 			}
-			
-			
+
+
 		</script>
-		
+
 		<style>
 
-            body {
-                background:  #ccc;
-            }
+			body {
+				background:  #ccc;
+			}
 
-            #sidebar {
-                width:400px;
-                height:100%;
-                padding:10px;
-                background-image:url('https://encrypted-tbn3.google.com/images?q=tbn:ANd9GcTqUiE7E5eQ8bhHensKUtTt2hzd61ogIcYppKKYHfCIE1Gr_rMv6g');
-                background-color: red;
-                padding:10px;
-                font-size:36pt;
-            }
+			#sidebar {
+				width:400px;
+				height:100%;
+				padding:10px;
+				background-image:url('https://encrypted-tbn3.google.com/images?q=tbn:ANd9GcTqUiE7E5eQ8bhHensKUtTt2hzd61ogIcYppKKYHfCIE1Gr_rMv6g');
+				background-color: red;
+				padding:10px;
+				font-size:36pt;
+			}
 
 			#body {
 				background-color: #555;
 				padding:10px;
-                text-align:center;
-                background-image: url('https://encrypted-tbn2.google.com/images?q=tbn:ANd9GcS_aG-7AMK8jYO8eHxkCVqpBHmZnGsNzCBB873ee-wiJYQ75yUcZA');
+				text-align:center;
+				background-image: url('https://encrypted-tbn2.google.com/images?q=tbn:ANd9GcS_aG-7AMK8jYO8eHxkCVqpBHmZnGsNzCBB873ee-wiJYQ75yUcZA');
 			}
 
-            a{
-                color:white;
-            }
+			a{
+				color:white;
+			}
 		</style>
 
 	</head>
 	<body>
-	
+
 		<div class="slidingview_wrapper">
 			<div id="sidebar">
-			    <button ontouchstart="sidebarClick()">Tap To Change Text Color</button>
-                <hr/>
-			    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lobortis, lorem nec vestibulum placerat, turpis nunc porttitor urna, non consectetur mauris eros vitae urna. Vestibulum at augue nisi. Suspendisse lobortis, libero vel adipiscing egestas, quam mi rhoncus justo, id imperdiet ligula nibh porta massa.
-			    
-            </div>
-			<div id="body">
-                <h1 style="color:white; font-size:50pt;">Swipe horizontally to reveal the sidebar</h1>
-                <p style="color:white;">Created with <a href="http://oridomi.com/">http://oridomi.com/</a>, works on iOS devices.</p>
+				<button ontouchstart="sidebarClick()">Tap To Change Text Color</button>
+				<hr/>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lobortis, lorem nec vestibulum placerat, turpis nunc porttitor urna, non consectetur mauris eros vitae urna. Vestibulum at augue nisi. Suspendisse lobortis, libero vel adipiscing egestas, quam mi rhoncus justo, id imperdiet ligula nibh porta massa.
 
-			    <img src="http://incubator.apache.org/cordova/images/cordova_256.png" />
+			</div>
+			<div id="body">
+				<h1 style="color:white; font-size:50pt;">Swipe horizontally to reveal the sidebar</h1>
+				<p style="color:white;">Created with <a href="http://oridomi.com/">http://oridomi.com/</a>, works on iOS devices.</p>
+
+				<img src="http://incubator.apache.org/cordova/images/cordova_256.png" />
 			</div>
 		</div>
-	
+
 	</body>
 </html>

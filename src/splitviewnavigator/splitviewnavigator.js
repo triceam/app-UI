@@ -11,7 +11,16 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-var SplitViewNavigator = function( target, toggleButtonLabel, backLinkCSS, bindToWindow ) {
+var SplitViewNavigator = function( target, options ) {
+
+	var defaults = {
+		CSSNamespace: 'splitViewNavigator_',
+		toggleButtonLabel: 'Menu',
+		backLinkCSS: 'viewNavigator_backButton',
+		bindToWindow: true
+	};
+
+	this.options = options = $.extend( {}, defaults, options );
 
 	this.animating = false;
 	this.animationDuration = 350;
@@ -23,18 +32,16 @@ var SplitViewNavigator = function( target, toggleButtonLabel, backLinkCSS, bindT
 	var regexp = new RegExp('Windows Phone OS 7');
 	this.winPhone = (navigator.userAgent.search(regexp) >= 0);
 
-	this.rootElement = $('<div class="splitViewNavigator_root"></div>');
-	this.sidebarContainer = $('<div class="splitViewNavigator_sidebar"></div>');
+	this.rootElement = $('<div class="' + options.CSSNamespace + 'root"></div>');
+	this.sidebarContainer = $('<div class="' + options.CSSNamespace + 'sidebar"></div>');
 	this.contentOverlay = $('<div class="content_overlay_hidden" id="overlay'+this.uniqueId+'"></div>');
-	this.bodyContainer = $('<div class="splitViewNavigator_body"></div>');
+	this.bodyContainer = $('<div class="' + options.CSSNamespace + 'body"></div>');
 
-	this.sidebarViewNavigator = new ViewNavigator( this.sidebarContainer.get()[0], backLinkCSS, false );
+	this.sidebarViewNavigator = new ViewNavigator( this.sidebarContainer.get()[0], options.backLinkCSS, false );
 
-	this.bodyViewNavigator = new ViewNavigator( this.bodyContainer.get()[0], backLinkCSS, false );
+	this.bodyViewNavigator = new ViewNavigator( this.bodyContainer.get()[0], options.backLinkCSS, false );
 
-	this.backLinkCSS = backLinkCSS ? backLinkCSS : 'viewNavigator_backButton';
-
-	this.toggleSidebarButton = $('<li class="viewNavigator_backButton viewNavigator_backButtonPosition ' + backLinkCSS + '" id="toggle' + this.uniqueId + '" onclick="window.splitViewNavigator.showSidebar()">'+toggleButtonLabel+'</li>');
+	this.toggleSidebarButton = $('<li class="viewNavigator_backButton viewNavigator_backButtonPosition ' + options.backLinkCSS + '" id="toggle' + this.uniqueId + '" onclick="window.splitViewNavigator.showSidebar()">' + options.toggleButtonLabel + '</li>');
 
 	this.rootElement.append( this.bodyContainer );
 	this.rootElement.append( this.contentOverlay );
@@ -52,7 +59,7 @@ var SplitViewNavigator = function( target, toggleButtonLabel, backLinkCSS, bindT
 		this.parent.resize( function(event){ self.resizeContent() } );
 	//}
 
-	if ( bindToWindow != false ) {
+	if ( options.bindToWindow != false ) {
 		$(window).resize( function(event){ self.resizeContent() } );
 	}
 	else {

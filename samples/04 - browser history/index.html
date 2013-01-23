@@ -1,73 +1,73 @@
 <!DOCTYPE html>
 <html>
 	<head>
-    	<title>TV Listings</title>
-    	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>TV Listings</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    	<script src="../../src/libs/jquery-1.7.1.js"></script>
-    	<script src="../../src/libs/jquery.animate-enhanced.js"></script>
-    	<script src="../../src/libs/iscroll.js"></script>
-    	<script src="../../src/libs/noClickDelay.js"></script>
-        <script type="text/javascript" src="libs/jquery.address-1.4.js"></script>
+		<script src="../../src/libs/jquery-1.7.1.js"></script>
+		<script src="../../src/libs/jquery.animate-enhanced.js"></script>
+		<script src="../../src/libs/iscroll.js"></script>
+		<script src="../../src/libs/noClickDelay.js"></script>
+		<script type="text/javascript" src="libs/jquery.address-1.4.js"></script>
 
-    	
-    	<link rel="stylesheet" href="../../src/viewnavigator/viewnavigator.css" type="text/css" />
-    	<script src="../../src/viewnavigator/viewnavigator.js"></script>
 
-    	<style>
-    		
-    		body,ul,li,header,nav,aside,section,article,p,a {
+		<link rel="stylesheet" href="../../src/viewnavigator/viewnavigator.css" type="text/css" />
+		<script src="../../src/viewnavigator/viewnavigator.js"></script>
+
+		<style>
+
+			body,ul,li,header,nav,aside,section,article,p,a {
 				padding:0;
 				margin:0;
 				border:0;
 			}
-    		
-    		body {
- 	   			font: normal 1.25em Helvetica;
- 	   			background: #333;
-    		}
-    		
-    		object{ 
-    			-webkit-overflow-scrolling: touch;
-    			}
-    		
-    		#iframeWrapper {
-    			width: 100%;
-    			height:100%;
-    			overflow: scroll;
-    			-webkit-overflow-scrolling: touch;
-    		}
-    		
-    		iframe {
-    			width: 100%;
-    			min-height:100%;
-    			background-color: rgba(0,0,0,0);
-    			border: none;
-    			overflow: scroll;
-    			-webkit-overflow-scrolling: touch;
-    		}
-    		
-    		
+
+			body {
+				font: normal 1.25em Helvetica;
+				background: #333;
+			}
+
+			object{
+				-webkit-overflow-scrolling: touch;
+				}
+
+			#iframeWrapper {
+				width: 100%;
+				height:100%;
+				overflow: scroll;
+				-webkit-overflow-scrolling: touch;
+			}
+
+			iframe {
+				width: 100%;
+				min-height:100%;
+				background-color: rgba(0,0,0,0);
+				border: none;
+				overflow: scroll;
+				-webkit-overflow-scrolling: touch;
+			}
+
+
 			.viewNavigator_header {
 				background-color: #333;
 				background: url("./assets/header_bg_wood.png") repeat;
 				font: bold 1em Helvetica;
 			}
-			
+
 			.viewNavigator_content {
 				border-top: 2px solid #666;
-    			background-color: #333;
+				background-color: #333;
 			}
-			
+
 			.viewNavigator_contentHolder {
-    			background-color: #333;
+				background-color: #333;
 			}
-			
+
 			.viewNavigator_header_title {
 				max-width:100%;
 				text-shadow: 1px 2px #777;
 			}
-			
+
 			.headerButton {
 				-webkit-box-shadow:inset 0px 1px 0px 0px #999;
 				box-shadow:inset 0px 1px 0px 0px #999;
@@ -105,104 +105,106 @@
 				display:block;
 				text-decoration:none;
 			}
-			
+
 			.oddRow {
 				background-color: #333;
 			}
-			
-			
+
+
 			.listSelected {
 				background:#015FE6;
 				background-color:#015FE6;
 				color: #FFF;
 				font-weight:bold;
 			}
-    		
-    	</style>
-    	
+
+		</style>
+
 		<script>
-            // jQuery Address Event handlers
-            $.address.externalChange(function(event) {
-                var text = event.value.substr(1);
-               
-                if ( text.length > 0 ) {
-                	loadView( text );
-                	window.defaultView.find("a").each(function(i){
+			// jQuery Address Event handlers
+			$.address.externalChange(function(event) {
+				var text = event.value.substr(1);
+
+				if ( text.length > 0 ) {
+					loadView( text );
+					window.defaultView.find("a").each(function(i){
 						var $this = $(this);
 						if ($this.text() == text ) {
 							$this.addClass( "listSelected" );
 						}
 					});
-                	$(this).addClass( "listSelected" );
-                }
-                else {        
+					$(this).addClass( "listSelected" );
+				}
+				else {
 					resetList();
-                	window.viewNavigator.popView();
+					window.viewNavigator.popView();
 					$.address.value("");
-                }
-            });
+				}
+			});
 
 
 
 			$(document).ready( function() {
-				
+
 				//Setup the default view
 				var template = $("#defaultViewTemplate").html();
 				window.defaultView = $(template);
-				
-				defaultViewDescriptor = { title: "TV Listings", 
+
+				defaultViewDescriptor = { title: "TV Listings",
 						 view: window.defaultView
 					   };
-				
+
 				//Setup the ViewNavigator
-				window.viewNavigator = new ViewNavigator( 'body', 'headerButton' );	
+				window.viewNavigator = new ViewNavigator( 'body', {
+					backLinkCSS: 'headerButton'
+				});
 				window.viewNavigator.pushView( defaultViewDescriptor );
-				
-				
+
+
 			});
-			
+
 			function loadView( title ) {
-				
-			 	var html = "<div style='min-height:100%; background:#FFF; padding: 3px 15px;'><h1>" + title + "</h1><strong>Cable television</strong> is a system of providing television programs to consumers via radio frequency (RF) signals transmitted to televisions through coaxial cables or digital light pulses through fixed optical fibers located on the subscriber's property. This can be compared to over-the-air method used in traditional broadcast television (via radio waves) in which a television antenna is required. FM radio programming, high-speed Internet, telephony, and similar non-television services may also be provided through cable television. Source: <a href='http://en.wikipedia.org/wiki/Cable_tv'>http://en.wikipedia.org/wiki/Cable_tv</a></div>";
-			 	
-			 	var iframeView = { title: title, 
-			 					backLabel: "Home",
-						 		view: $(html),
-						 		backCallback: handleNavigateBack
-					   		 };
+
+				var html = "<div style='min-height:100%; background:#FFF; padding: 3px 15px;'><h1>" + title + "</h1><strong>Cable television</strong> is a system of providing television programs to consumers via radio frequency (RF) signals transmitted to televisions through coaxial cables or digital light pulses through fixed optical fibers located on the subscriber's property. This can be compared to over-the-air method used in traditional broadcast television (via radio waves) in which a television antenna is required. FM radio programming, high-speed Internet, telephony, and similar non-television services may also be provided through cable television. Source: <a href='http://en.wikipedia.org/wiki/Cable_tv'>http://en.wikipedia.org/wiki/Cable_tv</a></div>";
+
+				var iframeView = { title: title,
+								backLabel: "Home",
+								view: $(html),
+								backCallback: handleNavigateBack
+							 };
 				window.viewNavigator.pushView( iframeView );
 			}
-			
-			function handleNavigateBack() { 
+
+			function handleNavigateBack() {
 				resetList();
 				history.back();
 			}
-			
-			function resetList() { 
+
+			function resetList() {
 				window.defaultView.find("a").each(function(i){
 					$(this).removeClass( "listSelected" );
 				});
 			}
-			
+
 		</script>
 
 	</head>
 	<body></body>
-	
+
 	<script type="text/html" id="defaultViewTemplate">
 	  <ul>
-	  	<a class="listItem" href="#CBS">CBS</a>
-	  	<a class="listItem oddRow" href="#NBC">NBC</a>
-	  	<a class="listItem" href="#FOX">FOX</a>
-	  	<a class="listItem oddRow" href="#ABC">ABC</a>
-	  	<a class="listItem" href="#TLC">TLC</a>
-	  	<a class="listItem oddRow" href="#CNN">CNN</a>
-	  	<a class="listItem" href="#Food Network">Food Network</a>
-	  	<a class="listItem oddRow" href="#ESPN">ESPN</a>
-	  	<a class="listItem" href="#TBS">TBS</a>
-	  	<a class="listItem oddRow" href="#USA">USA</a>
-	  	<a class="listItem" href="#MTV">MTV</a>
-	  	
+		<a class="listItem" href="#CBS">CBS</a>
+		<a class="listItem oddRow" href="#NBC">NBC</a>
+		<a class="listItem" href="#FOX">FOX</a>
+		<a class="listItem oddRow" href="#ABC">ABC</a>
+		<a class="listItem" href="#TLC">TLC</a>
+		<a class="listItem oddRow" href="#CNN">CNN</a>
+		<a class="listItem" href="#Food Network">Food Network</a>
+		<a class="listItem oddRow" href="#ESPN">ESPN</a>
+		<a class="listItem" href="#TBS">TBS</a>
+		<a class="listItem oddRow" href="#USA">USA</a>
+		<a class="listItem" href="#MTV">MTV</a>
+
 	  </ul>
 	</script>
 </html>
