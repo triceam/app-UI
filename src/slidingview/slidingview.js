@@ -21,18 +21,18 @@ var SlidingView = function( sidebarId, bodyId ) {
 
 	this.sidebarWidth = 250;
 
-	this.sidebar = $("#"+sidebarId);
-	this.body = $("#"+bodyId);
+	this.sidebar = $('#'+sidebarId);
+	this.body = $('#'+bodyId);
 
-	this.sidebar.addClass( "slidingview_sidebar" );
-	this.body.addClass( "slidingview_body" );
+	this.sidebar.addClass( 'slidingview_sidebar' );
+	this.body.addClass( 'slidingview_body' );
 
 	var self = this;
 	$(window).resize( function(event){ self.resizeContent() } );
 	$(this.parent).resize( function(event){ self.resizeContent() } );
 
-	if ( "onorientationchange" in window ) {
-		$(window).bind( "onorientationchange", function(event){ self.resizeContent() } )
+	if ( 'onorientationchange' in window ) {
+		$(window).bind( 'onorientationchange', function(event){ self.resizeContent() } )
 	}
 	this.resizeContent();
 	this.setupEventHandlers();
@@ -117,17 +117,17 @@ SlidingView.prototype.updateBasedOnTouchPoints = function( currentPosition ) {
 	this.bodyOffset = targetX;
 
 	//console.log( targetX );
-	//this.body.css("left", targetX );
-	//console.log( this.body.css("left") );
+	//this.body.css('left', targetX );
+	//console.log( this.body.css('left') );
 
-	if ( this.body.css("left") != "0px" ) {
-		this.body.css("left", "0px" );
+	if ( this.body.css('left') != '0px' ) {
+		this.body.css('left', '0px' );
 	}
-	this.body.css("-webkit-transform", "translate3d(" + targetX + "px,0,0)" );
-	this.body.css("-moz-transform", "translate3d(" + targetX + "px,0,0)" );
-	this.body.css("transform", "translate3d(" + targetX + "px,0,0)" );
+	this.body.css('-webkit-transform', 'translate3d(' + targetX + 'px,0,0)' );
+	this.body.css('-moz-transform', 'translate3d(' + targetX + 'px,0,0)' );
+	this.body.css('transform', 'translate3d(' + targetX + 'px,0,0)' );
 
-	//console.log( this.body.css("-moz-transform"), targetX );
+	//console.log( this.body.css('-moz-transform'), targetX );
 
 
 	/*if ( currentPosition != targetX ) {
@@ -139,15 +139,15 @@ SlidingView.prototype.updateBasedOnTouchPoints = function( currentPosition ) {
 			}, 100);
 	}*/
 
-	this.sidebar.trigger( "slidingViewProgress", { current: targetX, max:this.sidebarWidth } );
+	this.sidebar.trigger( 'slidingViewProgress', { current: targetX, max:this.sidebarWidth } );
 
 	this.gestureStartPosition = currentPosition;
 }
 
 SlidingView.prototype.snapToPosition = function() {
 
-	//this.body.css("-webkit-transform", "translate3d(0,0,0)" );
-	this.body.css("left", "0px" );
+	//this.body.css('-webkit-transform', 'translate3d(0,0,0)' );
+	this.body.css('left', '0px' );
 	var currentPosition = this.bodyOffset;
 	var halfWidth = this.sidebarWidth / 2;
 	var targetX;
@@ -169,7 +169,7 @@ SlidingView.prototype.snapToPosition = function() {
 				useTranslate3d: true
 			}, 100);
 
-		this.sidebar.trigger( "slidingViewProgress", { current:targetX, max:this.sidebarWidth } );
+		this.sidebar.trigger( 'slidingViewProgress', { current:targetX, max:this.sidebarWidth } );
 	}
 }
 

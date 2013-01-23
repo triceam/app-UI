@@ -23,7 +23,7 @@ var ViewNavigator = function( target, backLinkCSS, bindToWindow ) {
 
 	this.uniqueId = this.guid();
 
-	var regexp = new RegExp("Windows Phone OS 7");
+	var regexp = new RegExp('Windows Phone OS 7');
 	this.winPhone = (navigator.userAgent.search(regexp) >= 0);
 
 	this.rootElement = $('<div class="viewNavigator_root"></div>');
@@ -34,7 +34,7 @@ var ViewNavigator = function( target, backLinkCSS, bindToWindow ) {
 
 	this.parent = $( target );
 
-	this.backLinkCSS = backLinkCSS ? backLinkCSS : "viewNavigator_backButton";
+	this.backLinkCSS = backLinkCSS ? backLinkCSS : 'viewNavigator_backButton';
 
 	var self = this;
 	//$(window).resize( function(event){ self.resizeContent() } );
@@ -60,9 +60,9 @@ var ViewNavigator = function( target, backLinkCSS, bindToWindow ) {
 ViewNavigator.prototype.replaceView = function( viewDescriptor ) {
 	if (this.animating)
 		return;
-	viewDescriptor.animation = "pushEffect"
+	viewDescriptor.animation = 'pushEffect'
 
-	//this is a hack to mimic behavior of pushView, then pop off the "current" from the history
+	//this is a hack to mimic behavior of pushView, then pop off the 'current' from the history
 	this.history.push( viewDescriptor );
 	this.updateView( viewDescriptor );
 	this.history.pop();
@@ -73,7 +73,7 @@ ViewNavigator.prototype.replaceView = function( viewDescriptor ) {
 ViewNavigator.prototype.pushView = function( viewDescriptor ) {
 	if (this.animating)
 		return;
-	viewDescriptor.animation = "pushEffect"
+	viewDescriptor.animation = 'pushEffect'
 	this.history.push( viewDescriptor );
 	this.updateView( viewDescriptor );
 }
@@ -90,14 +90,14 @@ ViewNavigator.prototype.popView = function() {
 
 	this.history.pop();
 	var viewDescriptor = this.history[ this.history.length-1 ];
-	viewDescriptor.animation = "popEffect"
+	viewDescriptor.animation = 'popEffect'
 	this.updateView( viewDescriptor );
 }
 
 ViewNavigator.prototype.setHeaderPadding = function( amount ) {
 	this.headerPadding = amount;
 	if ( this.headerBacklink ) {
-		this.headerBacklink.css("left", amount);
+		this.headerBacklink.css('left', amount);
 	}
 }
 
@@ -113,7 +113,7 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
 
 	this.headerContent = $('<div class="viewNavigator_headerContent"></div>');
 
-	this.headerTitle = $("<div class='viewNavigator_header_title'>" + viewDescriptor.title + "</div>");
+	this.headerTitle = $('<div class="viewNavigator_header_title">' + viewDescriptor.title + '</div>');
 	this.headerContent.append( this.headerTitle );
 
 	var linkGuid = this.guid();
@@ -151,28 +151,28 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
 
 			//use this to mantain scroll position when scroller is destroyed
 			var children = $( this.contentPendingRemove.children()[0] );
-			children.attr( "scrollY", scrollY );
-			var originalTopMargin = children.css( "margin-top" );
-			children.attr( "originalTopMargin", originalTopMargin );
+			children.attr( 'scrollY', scrollY );
+			var originalTopMargin = children.css( 'margin-top' );
+			children.attr( 'originalTopMargin', originalTopMargin );
 
-			var cssString = "translate3d(0px, "+(parseInt( scrollY ) + parseInt( originalTopMargin )).toString()+"px, 0px)";
-			children.css( "-webkit-transform", cssString );
+			var cssString = 'translate3d(0px, '+(parseInt( scrollY ) + parseInt( originalTopMargin )).toString()+'px, 0px)';
+			children.css( '-webkit-transform', cssString );
 
-		   // children.css( "margin-top", (parseInt( scrollY ) + parseInt( originalTopMargin )).toString() + "px" );
+		   // children.css( 'margin-top', (parseInt( scrollY ) + parseInt( originalTopMargin )).toString() + 'px' );
 		}
 	}
 
 	$(this.contentPendingRemove).click(function(){ return false; });
 
 
-	if ( viewDescriptor.animation == "popEffect" ) {
+	if ( viewDescriptor.animation == 'popEffect' ) {
 
-		this.contentViewHolder.css( "left", -this.contentViewHolder.width() );
-		this.contentViewHolder.css( "opacity", 1 );
+		this.contentViewHolder.css( 'left', -this.contentViewHolder.width() );
+		this.contentViewHolder.css( 'opacity', 1 );
 		this.content.prepend( this.contentViewHolder );
 
-		this.headerContent.css( "left", -this.animationX );
-		this.headerContent.css( "opacity", 0 );
+		this.headerContent.css( 'left', -this.animationX );
+		this.headerContent.css( 'opacity', 0 );
 		this.header.append( this.headerContent );
 
 		var func = this.animationCompleteHandler(this.contentPendingRemove, this.headerContentPendingRemove, this.headerContent, this.contentViewHolder );
@@ -211,13 +211,13 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
 	}
 	else if ( this.history.length > 1 ) {
 
-		this.contentViewHolder.css( "left", this.contentViewHolder.width() );
-		this.contentViewHolder.css( "opacity", 1 );
+		this.contentViewHolder.css( 'left', this.contentViewHolder.width() );
+		this.contentViewHolder.css( 'opacity', 1 );
 
 		this.content.append( this.contentViewHolder );
 
-		this.headerContent.css( "left", this.animationX );
-		this.headerContent.css( "opacity", 0 );
+		this.headerContent.css( 'left', this.animationX );
+		this.headerContent.css( 'opacity', 0 );
 		this.header.append( this.headerContent );
 
 		var func = this.animationCompleteHandler(this.contentPendingRemove, this.headerContentPendingRemove, this.headerContent, this.contentViewHolder );
@@ -253,12 +253,12 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
 		//setTimeout( func, this.animationDuration+90 );
 	}
 	else {
-		this.contentViewHolder.css( "left", 0 );
-		this.contentViewHolder.css( "opacity", 1 );
+		this.contentViewHolder.css( 'left', 0 );
+		this.contentViewHolder.css( 'opacity', 1 );
 		this.content.append( this.contentViewHolder );
 
-		this.headerContent.css( "left", 0 );
-		this.headerContent.css( "opacity", 1 );
+		this.headerContent.css( 'left', 0 );
+		this.headerContent.css( 'opacity', 1 );
 		this.header.append( this.headerContent );
 		this.animating = false;
 		this.resetScroller();
@@ -287,7 +287,7 @@ ViewNavigator.prototype.destroyScroller = function() {
 
 ViewNavigator.prototype.resetScroller = function() {
 
-	var id = this.contentViewHolder.attr( "id" );
+	var id = this.contentViewHolder.attr( 'id' );
 	var currentViewDescriptor = this.history[ this.history.length-1];
 	this.destroyScroller();
 
@@ -298,25 +298,25 @@ ViewNavigator.prototype.resetScroller = function() {
 				setTimeout( function() {
 
 					//use this to mantain scroll position when scroller is destroyed
-					var targetDiv = $( $("#"+id ).children()[0] );
-					var scrollY= targetDiv.attr( "scrollY" );
-					var originalTopMargin = targetDiv.attr( "originalTopMargin" );
-					if ( currentViewDescriptor.maintainScrollPosition !== false && scrollY != undefined && scrollY != "" ){
-					  //  console.log( "resetScroller scrollY: " + scrollY)
-					  //  targetDiv.css( "margin-top", originalTopMargin );
-						var cssString = "translate3d(0px, "+(originalTopMargin).toString()+"px, 0px)";
-						targetDiv.css( "-webkit-transform", cssString );
+					var targetDiv = $( $('#'+id ).children()[0] );
+					var scrollY= targetDiv.attr( 'scrollY' );
+					var originalTopMargin = targetDiv.attr( 'originalTopMargin' );
+					if ( currentViewDescriptor.maintainScrollPosition !== false && scrollY != undefined && scrollY != '' ){
+					  //  console.log( 'resetScroller scrollY: ' + scrollY)
+					  //  targetDiv.css( 'margin-top', originalTopMargin );
+						var cssString = 'translate3d(0px, '+(originalTopMargin).toString()+'px, 0px)';
+						targetDiv.css( '-webkit-transform', cssString );
 					}
 					self.scroller = new iScroll( id );
-					if ( currentViewDescriptor.maintainScrollPosition !== false && scrollY != undefined && scrollY != "" ) {
+					if ( currentViewDescriptor.maintainScrollPosition !== false && scrollY != undefined && scrollY != '' ) {
 						self.scroller.scrollTo( 0, parseInt( scrollY ) );
 					}
 				}, 10 );
 				//this.scroller = new iScroll( id );
 			}
 			else {
-				var target = $("#"+id );
-				target.css( "overflow", "auto" );
+				var target = $('#'+id );
+				target.css( 'overflow', 'auto' );
 			}
 		}
 	}
@@ -338,11 +338,11 @@ ViewNavigator.prototype.animationCompleteHandler = function(removalTarget, heade
 		self.animating = false;
 		self.resetScroller();
 		if ( removalTarget ) {
-			removalTarget.unbind( "click" );
+			removalTarget.unbind( 'click' );
 			removalTarget.detach();
 		}
 		if ( headerRemovalTarget ) {
-			headerRemovalTarget.unbind( "click" );
+			headerRemovalTarget.unbind( 'click' );
 			headerRemovalTarget.detach();
 		}
 	}
@@ -365,7 +365,7 @@ ViewNavigator.prototype.S4 = function() {
 }
 
 ViewNavigator.prototype.guid = function() {
-	return (this.S4() + this.S4() + "-" + this.S4() + "-4" + this.S4().substr(0,3) + "-" + this.S4() + "-" + this.S4() + this.S4() + this.S4()).toLowerCase();
+	return (this.S4() + this.S4() + '-' + this.S4() + '-4' + this.S4().substr(0,3) + '-' + this.S4() + '-' + this.S4() + this.S4() + this.S4()).toLowerCase();
 }
 
 
@@ -374,11 +374,11 @@ ViewNavigator.prototype.guid = function() {
 /*
 //android+phonegap specific back button support - will only work if phonegap is used on android (www.phonegap.com)
 if ( typeof PhoneGap != 'undefined' ) {
-	document.addEventListener("deviceready", onDeviceReady, false);
+	document.addEventListener('deviceready', onDeviceReady, false);
 }
 
 function onDeviceReady() {
-   document.addEventListener("backbutton", onBackKey, false);
+   document.addEventListener('backbutton', onBackKey, false);
 }
 
 function onBackKey( event ) {
