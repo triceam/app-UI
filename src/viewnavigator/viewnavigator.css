@@ -27,14 +27,14 @@ body {
 	top:0px;
 	bottom:0px;
 	left:0px;
-	right:0px; 
+	right:0px;
 	overflow: hidden;
 	padding: 0px;
 	margin: 0px;
-	
-    backface-visibility: hidden;
+
+	backface-visibility: hidden;
 	-webkit-backface-visibility: hidden;
-	
+
 	transform: translate3d(0,0,0);
 	-webkit-transform: translate3d(0,0,0);
 }
@@ -52,7 +52,7 @@ body {
 	height:46px;
 	overflow:hide;
 	padding:0px;
-	
+
 	background: rgb(167,207,223); /* Old browsers */
 	background: -moz-linear-gradient(top, rgba(167,207,223,1) 0%, rgba(35,83,138,1) 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(167,207,223,1)), color-stop(100%,rgba(35,83,138,1))); /* Chrome,Safari4+ */
@@ -61,10 +61,10 @@ body {
 	background: -ms-linear-gradient(top, rgba(167,207,223,1) 0%,rgba(35,83,138,1) 100%); /* IE10+ */
 	background: linear-gradient(top, rgba(167,207,223,1) 0%,rgba(35,83,138,1) 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a7cfdf', endColorstr='#23538a',GradientType=0 ); /* IE6-9 */
-	
-    backface-visibility: hidden;
+
+	backface-visibility: hidden;
 	-webkit-backface-visibility: hidden;
-	
+
 	transform: translate3d(0,0,0);
 	-webkit-transform: translate3d(0,0,0);
 }
@@ -74,13 +74,13 @@ body {
 	top:0px;
 	left:0px;
 	z-index:2;
-	
+
 	white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    
-    max-width:30%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+
+	max-width:30%;
 }
 
 .viewNavigator_header_title {
@@ -95,18 +95,18 @@ body {
 	font-weight: bold;
 	color: #FFFFFF;
 	white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    
-    max-width:48%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+
+	max-width:48%;
 }
 
 .viewNavigator_headerContent {
 
-    backface-visibility: hidden;
+	backface-visibility: hidden;
 	-webkit-backface-visibility: hidden;
-	
+
 	transform: translate3d(0,0,0);
 	-webkit-transform: translate3d(0,0,0);
 
@@ -120,10 +120,10 @@ body {
 	right:0px;
 	bottom:0px;
 	overflow:hidden;
-	
-    backface-visibility: hidden;
+
+	backface-visibility: hidden;
 	-webkit-backface-visibility: hidden;
-	
+
 	transform: translate3d(0,0,0);
 	-webkit-transform: translate3d(0,0,0);
 }
@@ -133,23 +133,23 @@ body {
 .viewNavigator_content select {
 	overflow:auto;
 	position:relative;
-    backface-visibility: auto;
+	backface-visibility: auto;
 	-webkit-backface-visibility: auto;
 }
 
 
 
 .viewNavigator_contentHolder > div:first-child {
-    min-height:100%;
-    border-bottom:1px solid #444;
-    border-top:1px solid #444;
+	min-height:100%;
+	border-bottom:1px solid #444;
+	border-top:1px solid #444;
 }
 
 .viewNavigator_content div {
 
-    backface-visibility: visible;
-    -webkit-backface-visibility: visible;
-    -webkit-transform: translate3d(0,0,0);
+	backface-visibility: visible;
+	-webkit-backface-visibility: visible;
+	-webkit-transform: translate3d(0,0,0);
 }
 
 .viewNavigator_contentHolder {
@@ -162,14 +162,14 @@ body {
 	overflow:auto;
 	padding:0px;
 	margin:0px;
-    overflow: hidden;
+	overflow: hidden;
 	-webkit-overflow-scrolling : touch;
 	min-width:100%;
 	min-height:100%
 
-    backface-visibility: hidden;
+	backface-visibility: hidden;
 	-webkit-backface-visibility: hidden;
-	
+
 	transform: translate3d(0,0,0);
 	-webkit-transform: translate3d(0,0,0);
 

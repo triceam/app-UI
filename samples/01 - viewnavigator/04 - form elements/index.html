@@ -1,55 +1,55 @@
 <!DOCTYPE html>
 <html>
 	<head>
-    	<title>View Navigator Sample</title>
-    	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>View Navigator Sample</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    	<script src="../../../src/libs/jquery-1.7.1.js"></script>
-    	<script src="../../../src/libs/jquery.animate-enhanced.js"></script>
-    	<script src="../../../src/libs/iscroll.js"></script>
-    	<script src="../../../src/libs/noClickDelay.js"></script>
-    	
-    	<link rel="stylesheet" href="../../../src/viewnavigator/viewnavigator.css" type="text/css" />
-    	<script src="../../../src/viewnavigator/viewnavigator.js"></script>
+		<script src="../../../src/libs/jquery-1.7.1.js"></script>
+		<script src="../../../src/libs/jquery.animate-enhanced.js"></script>
+		<script src="../../../src/libs/iscroll.js"></script>
+		<script src="../../../src/libs/noClickDelay.js"></script>
+
+		<link rel="stylesheet" href="../../../src/viewnavigator/viewnavigator.css" type="text/css" />
+		<script src="../../../src/viewnavigator/viewnavigator.js"></script>
 
 		<script>
 
 			$(document).ready( function() {
-				
+
 				//Setup the default view
 				var defaultView = getView();
 				defaultView.backLabel = null;
-				
+
 				//Setup the ViewNavigator
-				window.viewNavigator = new ViewNavigator( 'body' );	
+				window.viewNavigator = new ViewNavigator( 'body' );
 				window.viewNavigator.pushView( defaultView );
-				
-				
+
+
 			} );
-			
-			function pushView() { 
+
+			function pushView() {
 				//create a view and push it onto the view navigator
 				var view = getView();
 				window.viewNavigator.pushView( view );
 			}
-			
-			function popView() { 
+
+			function popView() {
 				//pop a view from the view navigator
 				window.viewNavigator.popView();
 			}
-			
+
 			function getView() {
 				//create a view descriptor with random content
-				var bodyView =$('<div id="defaultView"><input type="text" placeholder="Email" /> <br/><textarea type="text" placeholder="Text Area" /> <br/>' + 
-				                '<select><option value="volvo">Red</option><option value="saab">White</option><option value="mercedes">Blue</option></select></div>');
+				var bodyView =$('<div id="defaultView"><input type="text" placeholder="Email" /> <br/><textarea type="text" placeholder="Text Area" /> <br/>' +
+								'<select><option value="volvo">Red</option><option value="saab">White</option><option value="mercedes">Blue</option></select></div>');
 				var links = bodyView.find('a');
-				
-				return { title: "Default View " + parseInt(Math.random()*1000), 
+
+				return { title: "Default View " + parseInt(Math.random()*1000),
 						 backLabel: "Back",
 						 view:  bodyView
 					   };
 			}
-			
+
 		</script>
 
 	</head>

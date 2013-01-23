@@ -13,26 +13,26 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 
 var SlidingView = function( sidebarId, bodyId ) {
-	
+
 	window.slidingView = this;
-	
+
 	this.gestureStarted = false;
 	this.bodyOffset = 0;
-	
+
 	this.sidebarWidth = 250;
-	
-	this.sidebar = $("#"+sidebarId);
-	this.body = $("#"+bodyId);
-	
-	this.sidebar.addClass( "slidingview_sidebar" );
-	this.body.addClass( "slidingview_body" );
-		
+
+	this.sidebar = $('#'+sidebarId);
+	this.body = $('#'+bodyId);
+
+	this.sidebar.addClass( 'slidingview_sidebar' );
+	this.body.addClass( 'slidingview_body' );
+
 	var self = this;
 	$(window).resize( function(event){ self.resizeContent() } );
 	$(this.parent).resize( function(event){ self.resizeContent() } );
-	
-	if ( "onorientationchange" in window ) {
-		$(window).bind( "onorientationchange", function(event){ self.resizeContent() } )
+
+	if ( 'onorientationchange' in window ) {
+		$(window).bind( 'onorientationchange', function(event){ self.resizeContent() } )
 	}
 	this.resizeContent();
 	this.setupEventHandlers();
@@ -41,7 +41,7 @@ var SlidingView = function( sidebarId, bodyId ) {
 SlidingView.prototype.setupEventHandlers = function() {
 
 	this.touchSupported =  ('ontouchstart' in window);
-	
+
 	this.START_EVENT = this.touchSupported ? 'touchstart' : 'mousedown';
 	this.MOVE_EVENT = this.touchSupported ? 'touchmove' : 'mousemove';
 	this.END_EVENT = this.touchSupported ? 'touchend' : 'mouseup';
@@ -54,13 +54,13 @@ SlidingView.prototype.setupEventHandlers = function() {
 
 SlidingView.prototype.onTouchStart = function(event) {
 	//console.log( event.type );
-	
+
 	this.gestureStartPosition = this.getTouchCoordinates( event );
-	
+
 	var self = this;
 	this.touchMoveHandler = function( event ){ self.onTouchMove(event) };
 	this.touchUpHandler = function( event ){ self.onTouchEnd(event) };
-	
+
 	this.body.get()[0].addEventListener( this.MOVE_EVENT, this.touchMoveHandler, false );
 	this.body.get()[0].addEventListener( this.END_EVENT, this.touchUpHandler, false );
 	this.body.stop();
@@ -68,7 +68,7 @@ SlidingView.prototype.onTouchStart = function(event) {
 
 SlidingView.prototype.onTouchMove = function(event) {
 	var currentPosition = this.getTouchCoordinates( event );
-	
+
 	if ( this.gestureStarted ) {
 		event.preventDefault();
 		event.stopPropagation();
@@ -79,13 +79,13 @@ SlidingView.prototype.onTouchMove = function(event) {
 		//console.log( Math.abs( currentPosition.x - this.gestureStartPosition.x ) );
 		//detect the gesture
 		if ( Math.abs( currentPosition.y - this.gestureStartPosition.y ) > 50 ) {
-			
+
 			//dragging veritcally - ignore this gesture
 			this.unbindEvents();
 			return;
 		}
 		else if ( Math.abs( currentPosition.x - this.gestureStartPosition.x ) > 50 ) {
-			
+
 			//dragging horizontally - let's handle this
 			this.gestureStarted = true;
 			event.preventDefault();
@@ -107,47 +107,47 @@ SlidingView.prototype.onTouchEnd = function(event) {
 
 
 SlidingView.prototype.updateBasedOnTouchPoints = function( currentPosition ) {
-	
+
 	var deltaX = (currentPosition.x - this.gestureStartPosition.x);
 	var targetX = this.bodyOffset + deltaX;
-	
+
 	targetX = Math.max( targetX, 0 );
 	targetX = Math.min( targetX, this.sidebarWidth );
-	
+
 	this.bodyOffset = targetX;
-	
+
 	//console.log( targetX );
-	//this.body.css("left", targetX );
-	//console.log( this.body.css("left") );
-	
-	if ( this.body.css("left") != "0px" ) {
-		this.body.css("left", "0px" );
+	//this.body.css('left', targetX );
+	//console.log( this.body.css('left') );
+
+	if ( this.body.css('left') != '0px' ) {
+		this.body.css('left', '0px' );
 	}
-	this.body.css("-webkit-transform", "translate3d(" + targetX + "px,0,0)" );
-	this.body.css("-moz-transform", "translate3d(" + targetX + "px,0,0)" );
-	this.body.css("transform", "translate3d(" + targetX + "px,0,0)" );
-	
-	//console.log( this.body.css("-moz-transform"), targetX );
-	
-	
+	this.body.css('-webkit-transform', 'translate3d(' + targetX + 'px,0,0)' );
+	this.body.css('-moz-transform', 'translate3d(' + targetX + 'px,0,0)' );
+	this.body.css('transform', 'translate3d(' + targetX + 'px,0,0)' );
+
+	//console.log( this.body.css('-moz-transform'), targetX );
+
+
 	/*if ( currentPosition != targetX ) {
-	
+
 		this.body.stop(true,false).animate({
 				left:targetX,
 				avoidTransforms:false,
 				useTranslate3d: true
 			}, 100);
 	}*/
-	
-	this.sidebar.trigger( "slidingViewProgress", { current: targetX, max:this.sidebarWidth } );
-	
+
+	this.sidebar.trigger( 'slidingViewProgress', { current: targetX, max:this.sidebarWidth } );
+
 	this.gestureStartPosition = currentPosition;
 }
 
 SlidingView.prototype.snapToPosition = function() {
 
-	//this.body.css("-webkit-transform", "translate3d(0,0,0)" );
-	this.body.css("left", "0px" );
+	//this.body.css('-webkit-transform', 'translate3d(0,0,0)' );
+	this.body.css('left', '0px' );
 	var currentPosition = this.bodyOffset;
 	var halfWidth = this.sidebarWidth / 2;
 	var targetX;
@@ -158,18 +158,18 @@ SlidingView.prototype.snapToPosition = function() {
 		targetX = this.sidebarWidth;
 	}
 	this.bodyOffset = targetX;
-	
+
 	//console.log( currentPosition, halfWidth, targetX );
 
 	if ( currentPosition != targetX ) {
-	
+
 		this.body.stop(true, false).animate({
 				left:targetX,
 				avoidTransforms:false,
 				useTranslate3d: true
 			}, 100);
-			
-	    this.sidebar.trigger( "slidingViewProgress", { current:targetX, max:this.sidebarWidth } );
+
+		this.sidebar.trigger( 'slidingViewProgress', { current:targetX, max:this.sidebarWidth } );
 	}
 }
 
@@ -193,10 +193,10 @@ SlidingView.prototype.getTouchCoordinates = function(event) {
 SlidingView.prototype.resizeContent = function() {
 
 	var $window = $(window)
-    var w = $window.width();
-    var h = $window.height();
-    
-    this.body.width( w );
+	var w = $window.width();
+	var h = $window.height();
+
+	this.body.width( w );
 }
 
-	
+
