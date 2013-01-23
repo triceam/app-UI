@@ -155,10 +155,10 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
 			var originalTopMargin = children.css( 'margin-top' );
 			children.attr( 'originalTopMargin', originalTopMargin );
 
-			var cssString = 'translate3d(0px, '+(parseInt( scrollY ) + parseInt( originalTopMargin )).toString()+'px, 0px)';
+			var cssString = 'translate3d(0px, '+(parseInt( scrollY, 10 ) + parseInt( originalTopMargin, 10 )).toString()+'px, 0px)';
 			children.css( '-webkit-transform', cssString );
 
-		   // children.css( 'margin-top', (parseInt( scrollY ) + parseInt( originalTopMargin )).toString() + 'px' );
+		   // children.css( 'margin-top', (parseInt( scrollY, 10 ) + parseInt( originalTopMargin, 10 )).toString() + 'px' );
 		}
 	}
 
@@ -309,7 +309,7 @@ ViewNavigator.prototype.resetScroller = function() {
 					}
 					self.scroller = new iScroll( id );
 					if ( currentViewDescriptor.maintainScrollPosition !== false && scrollY != undefined && scrollY != '' ) {
-						self.scroller.scrollTo( 0, parseInt( scrollY ) );
+						self.scroller.scrollTo( 0, parseInt( scrollY, 10 ) );
 					}
 				}, 10 );
 				//this.scroller = new iScroll( id );
