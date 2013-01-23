@@ -16,7 +16,8 @@ var ViewNavigator = function( target, options ) {
 	var defaults = {
 		CSSNamespace: 'viewNavigator_',
 		backLinkCSS: 'viewNavigator_backButton',
-		bindToWindow: true
+		bindToWindow: true,
+		useNoClickDelay: true
 	};
 
 	this.options = options = $.extend( {}, defaults, options );
@@ -268,7 +269,7 @@ ViewNavigator.prototype.updateView = function( viewDescriptor ) {
 		this.resetScroller();
 	}
 
-	if ( viewDescriptor.backLabel ) {
+	if ( viewDescriptor.backLabel && this.options.useNoClickDelay ) {
 		new NoClickDelay( this.headerBacklink.get()[0] );
 	}
 
@@ -327,7 +328,7 @@ ViewNavigator.prototype.resetScroller = function() {
 						self.scroller.scrollTo( 0, parseInt( scrollY, 10 ) );
 					}
 				}, 10 );
-				//this.scroller = new iScroll( id );
+
 			}
 			else {
 				var target = $('#'+id );

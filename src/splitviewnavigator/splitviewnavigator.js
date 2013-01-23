@@ -17,7 +17,8 @@ var SplitViewNavigator = function( target, options ) {
 		CSSNamespace: 'splitViewNavigator_',
 		toggleButtonLabel: 'Menu',
 		backLinkCSS: 'viewNavigator_backButton',
-		bindToWindow: true
+		bindToWindow: true,
+		useNoClickDelay: true
 	};
 
 	this.options = options = $.extend( {}, defaults, options );
@@ -72,8 +73,10 @@ var SplitViewNavigator = function( target, options ) {
 
 	this.contentOverlay.click( function(event){ self.hideSidebar() } );
 
-	new NoClickDelay( this.contentOverlay.get()[0] );
-	new NoClickDelay( this.toggleSidebarButton.get()[0] );
+	if ( this.options.useNoClickDelay ) {
+		new NoClickDelay( this.contentOverlay.get()[0] );
+		new NoClickDelay( this.toggleSidebarButton.get()[0] );
+	}
 	window.splitViewNavigator = this;
 }
 
