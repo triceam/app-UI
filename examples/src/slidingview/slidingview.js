@@ -10,7 +10,7 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVE
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 
 var SlidingView = function( sidebarId, bodyId ) {
 	
