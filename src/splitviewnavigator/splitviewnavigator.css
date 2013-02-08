@@ -12,75 +12,67 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 .splitViewNavigator_root {
-	position: absolute;
-	top: 0px;
-	bottom: 0px;
-	left: 0px;
-	right: 0px;
+	position:absolute;
+	top:0px;
+	bottom:0px;
+	left:0px;
+	right:0px;
 }
 
 .splitViewNavigator_sidebar {
-	position: absolute;
-	overflow: hidden;
+	position:absolute;
+	overflow:hidden;
 	-webkit-backface-visibility: hidden;
-
-	-webkit-transform: translate3d(0,0,0);
-	-moz-transform: translate3d(0,0,0);
-	-o-transform: translate3d(0,0,0);
-	-ms-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
-	border-right: 1px solid #999;
+	-webkit-transform: translate3d(0,0,0);
+	border-right:1px solid #999;
 }
 
 .splitViewNavigator_body {
-	position: absolute;
-	background: white;
-	overflow: hidden;
+	position:absolute;
+	background:white;
+	overflow:hidden;
 	-webkit-backface-visibility: hidden;
-
-	-webkit-transform: translate3d(0,0,0);
-	-moz-transform: translate3d(0,0,0);
-	-o-transform: translate3d(0,0,0);
-	-ms-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
+	-webkit-transform: translate3d(0,0,0);
 }
 
 .content_overlay_visible {
-	position: absolute;
-	top: 0px;
-	bottom: 0px;
-	left: 0px;
-	right: 0px;
+	position:absolute;
+	top:0px;
+	bottom:0px;
+	left:0px;
+	right:0px;
 }
 
 .content_overlay_hidden {
-	position: absolute;
-	top: -1px;
-	left: -1px;
-	width: 0px;
-	height: 0px;
-	display: none;
+	position:absolute;
+	top:-1px;
+	left:-1px;
+	width:0px;
+	height:0px;
+	display:none;
 }
 
 .sidebar_portrait {
-	top: 0px;
-	bottom: 0px;
-	left: -240px;
-	width: 240px;
+	top:0px;
+	bottom:0px;
+	left:-240px;
+	width:240px;
 }
 
 .body_portrait {
-	top: 0px;
-	bottom: 0px;
-	right: 0px;
-	left: 0px;
+	top:0px;
+	bottom:0px;
+	right:0px;
+	left:0px;
 }
 
 .sidebar_landscape {
-	top: 0px;
-	bottom: 0px;
-	left: 0px;
-	width: 240px;
+	top:0px;
+	bottom:0px;
+	left:0px;
+	width:240px;
 }
 
 .body_landscape {
