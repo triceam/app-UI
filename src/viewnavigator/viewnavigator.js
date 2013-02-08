@@ -391,7 +391,10 @@ function onBackKey( event ) {
 */
 	
 //block page scrolling
-document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+if (!document.addEventListener)
+	document.attachEvent('touchmove', function (e) { e.preventDefault(); });
+else
+	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 
 
 
