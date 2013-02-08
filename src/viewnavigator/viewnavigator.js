@@ -19,14 +19,14 @@ var ViewNavigator = function( target, options ) {
 		useNoClickDelay: true
 	};
 
-    //support legacy url signature
-    //function( target, backLinkCSS, bindToWindow ) {
-    if ( typeof(options) == "string" ){
-        options = {
-            backLinkCSS:arguments[1],
-            bindToWindow:arguments[2]
-        }
-    }
+	//support legacy url signature
+	//function( target, backLinkCSS, bindToWindow ) {
+	if ( typeof(options) == "string" ){
+		options = {
+			backLinkCSS:arguments[1],
+			bindToWindow:arguments[2]
+		}
+	}
 
 	this.options = options = $.extend( {}, defaults, options );
 
