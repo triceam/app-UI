@@ -103,10 +103,16 @@ ViewNavigator.prototype.popView = function() {
 		currentViewDescriptor.backCallback();
 	}
 
-	this.history.pop();
-	var viewDescriptor = this.history[ this.history.length-1 ];
-	viewDescriptor.animation = 'popEffect'
-	this.updateView( viewDescriptor );
+		if(this.history.length != 1) {//firefox fix
+
+			this.history.pop();
+
+		}
+
+		var viewDescriptor = this.history[ this.history.length-1 ];
+		viewDescriptor.animation = 'popEffect'
+		this.updateView( viewDescriptor );
+
 }
 
 ViewNavigator.prototype.setHeaderPadding = function( amount ) {
