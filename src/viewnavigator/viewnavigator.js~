@@ -103,15 +103,23 @@ ViewNavigator.prototype.popView = function() {
 		currentViewDescriptor.backCallback();
 	}
 
-		if(this.history.length != 1) {
+	var temp_history = this.history;
 
-			this.history.pop();
-
-		}
-
+	try {//fixes error on firefox where history is emptied
+		this.history.pop();
 		var viewDescriptor = this.history[ this.history.length-1 ];
 		viewDescriptor.animation = 'popEffect'
 		this.updateView( viewDescriptor );
+
+	} catch(ex) {
+
+	console.log("Error: " + ex);
+
+	var viewDescriptor = temp_history[ temp_history.length-1 ];
+	viewDescriptor.animation = 'popEffect'
+	this.updateView( viewDescriptor );
+
+	}
 
 }
 
