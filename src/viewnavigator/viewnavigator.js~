@@ -103,7 +103,7 @@ ViewNavigator.prototype.popView = function() {
 		currentViewDescriptor.backCallback();
 	}
 
-		if(this.history.length != 1) {//firefox fix
+		if(this.history.length != 1) {
 
 			this.history.pop();
 
