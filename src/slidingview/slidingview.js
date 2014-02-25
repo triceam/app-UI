@@ -12,17 +12,21 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 
-var SlidingView = function( sidebarId, bodyId ) {
+var SlidingView = function( sidebarId, bodyId, indicatorId) {
 	
 	window.slidingView = this;
 	
 	this.gestureStarted = false;
 	this.bodyOffset = 0;
 	
-	this.sidebarWidth = 250;
+	this.sidebarWidth = 200;
 	
 	this.sidebar = $("#"+sidebarId);
 	this.body = $("#"+bodyId);
+	if(indicatorId !== undefined){
+		this.indicator = $("#"+indicatorId);
+	}
+	
 	
 	this.sidebar.addClass( "slidingview_sidebar" );
 	this.body.addClass( "slidingview_body" );
@@ -113,7 +117,8 @@ SlidingView.prototype.updateBasedOnTouchPoints = function( currentPosition ) {
 	
 	targetX = Math.max( targetX, 0 );
 	targetX = Math.min( targetX, this.sidebarWidth );
-	
+	indicatorMargin = Math.round(targetX / 10);
+
 	this.bodyOffset = targetX;
 	
 	//console.log( targetX );
@@ -126,6 +131,12 @@ SlidingView.prototype.updateBasedOnTouchPoints = function( currentPosition ) {
 	this.body.css("-webkit-transform", "translate3d(" + targetX + "px,0,0)" );
 	this.body.css("-moz-transform", "translate3d(" + targetX + "px,0,0)" );
 	this.body.css("transform", "translate3d(" + targetX + "px,0,0)" );
+	if(this.indicator !== undefined){
+		indicatorMargin = Math.round(targetX / 35);
+		this.indicator.css("-webkit-transform", "translate3d(-" +indicatorMargin+"px,0,0)" );
+		this.indicator.css("-moz-transform", "translate3d(-"+indicatorMargin+"px,0,0)" );
+		this.indicator.css("transform", "translate3d(-"+indicatorMargin+"px,0,0)" );
+	}
 	
 	//console.log( this.body.css("-moz-transform"), targetX );
 	
@@ -139,9 +150,12 @@ SlidingView.prototype.updateBasedOnTouchPoints = function( currentPosition ) {
 			}, 100);
 	}*/
 	
+	
+
 	this.sidebar.trigger( "slidingViewProgress", { current: targetX, max:this.sidebarWidth } );
 	
 	this.gestureStartPosition = currentPosition;
+	
 }
 
 SlidingView.prototype.snapToPosition = function() {
@@ -179,12 +193,14 @@ SlidingView.prototype.slideView = function(targetX) {
 SlidingView.prototype.close = function() {
     this.bodyOffset = 0;
     this.slideView(0);
+
 }
 
 SlidingView.prototype.open = function() {
     if(this.bodyOffset == this.sidebarWidth) return;
     this.bodyOffset = this.sidebarWidth;
     this.slideView(this.sidebarWidth);
+    
 }
 
 SlidingView.prototype.unbindEvents = function() {
