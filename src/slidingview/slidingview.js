@@ -19,7 +19,7 @@ var SlidingView = function( sidebarId, bodyId, indicatorId) {
 	this.gestureStarted = false;
 	this.bodyOffset = 0;
 	
-	this.sidebarWidth = 200;
+	this.sidebarWidth = 250;
 	
 	this.sidebar = $("#"+sidebarId);
 	this.body = $("#"+bodyId);
