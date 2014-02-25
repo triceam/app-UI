@@ -117,7 +117,6 @@ SlidingView.prototype.updateBasedOnTouchPoints = function( currentPosition ) {
 	
 	targetX = Math.max( targetX, 0 );
 	targetX = Math.min( targetX, this.sidebarWidth );
-	indicatorMargin = Math.round(targetX / 10);
 
 	this.bodyOffset = targetX;
 	
