@@ -18,7 +18,7 @@ var SlidingView = function( sidebarId, bodyId ) {
 	
 	this.gestureStarted = false;
 	this.bodyOffset = 0;
-	
+	this.enabled = true;
 	this.sidebarWidth = 250;
 	
 	this.sidebar = $("#"+sidebarId);
@@ -67,31 +67,33 @@ SlidingView.prototype.onTouchStart = function(event) {
 }
 
 SlidingView.prototype.onTouchMove = function(event) {
-	var currentPosition = this.getTouchCoordinates( event );
-	
-	if ( this.gestureStarted ) {
-		event.preventDefault();
-		event.stopPropagation();
-		this.updateBasedOnTouchPoints( currentPosition );
-		return;
-	}
-	else {
-		//console.log( Math.abs( currentPosition.x - this.gestureStartPosition.x ) );
-		//detect the gesture
-		if ( Math.abs( currentPosition.y - this.gestureStartPosition.y ) > 50 ) {
-			
-			//dragging veritcally - ignore this gesture
-			this.unbindEvents();
-			return;
-		}
-		else if ( Math.abs( currentPosition.x - this.gestureStartPosition.x ) > 50 ) {
-			
-			//dragging horizontally - let's handle this
-			this.gestureStarted = true;
+	if (this.enabled) {
+		var currentPosition = this.getTouchCoordinates( event );
+		
+		if ( this.gestureStarted ) {
 			event.preventDefault();
 			event.stopPropagation();
 			this.updateBasedOnTouchPoints( currentPosition );
 			return;
+		}
+		else {
+			//console.log( Math.abs( currentPosition.x - this.gestureStartPosition.x ) );
+			//detect the gesture
+			if ( Math.abs( currentPosition.y - this.gestureStartPosition.y ) > 50 ) {
+				
+				//dragging veritcally - ignore this gesture
+				this.unbindEvents();
+				return;
+			}
+			else if ( Math.abs( currentPosition.x - this.gestureStartPosition.x ) > 50 ) {
+				
+				//dragging horizontally - let's handle this
+				this.gestureStarted = true;
+				event.preventDefault();
+				event.stopPropagation();
+				this.updateBasedOnTouchPoints( currentPosition );
+				return;
+			}
 		}
 	}
 }
@@ -177,14 +179,29 @@ SlidingView.prototype.slideView = function(targetX) {
 }
 
 SlidingView.prototype.close = function() {
-    this.bodyOffset = 0;
-    this.slideView(0);
+	if (this.enabled) {
+		this.bodyOffset = 0;
+		this.slideView(0);
+	}
 }
 
 SlidingView.prototype.open = function() {
-    if(this.bodyOffset == this.sidebarWidth) return;
-    this.bodyOffset = this.sidebarWidth;
-    this.slideView(this.sidebarWidth);
+    if (this.enabled) {
+		if(this.bodyOffset == this.sidebarWidth) return;
+		this.bodyOffset = this.sidebarWidth;
+		this.slideView(this.sidebarWidth);
+	}
+}
+
+SlidingView.prototype.toggle = function() {
+	(this.bodyOffset < this.sidebarWidth) ? this.open() : this.close();
+}
+
+SlidingView.prototype.enable = function () {
+	this.enabled = true;
+}
+SlidingView.prototype.disable = function () {
+	this.enabled = false;
 }
 
 SlidingView.prototype.unbindEvents = function() {

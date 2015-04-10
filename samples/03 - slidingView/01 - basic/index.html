@@ -15,7 +15,17 @@
 			$(document).ready( function() {
 
 				//Setup the ViewNavigator
-				new SlidingView( 'sidebar', 'body' );
+				var slider = new SlidingView( 'sidebar', 'body' );
+				
+				$("#slide").click(function() {
+					slider.toggle();
+				});
+				$("#enable").click(function() {
+					slider.enable();
+				});
+				$("#disable").click(function() {
+					slider.disable();
+				});
 			} );
 
 
@@ -31,12 +41,23 @@
 				background-color: white;
 				padding:10px;
 			}
+			#header {
+				background-color: green;
+				min-height:20px;
+			}
+			#wrapper {
+				top:25px;
+			}
 		</style>
 
 	</head>
 	<body>
-
-		<div class="slidingview_wrapper">
+		<div id="header">
+			<input type="button" id="slide" value="slide">
+			<input type="button" id="enable" value="enable">
+			<input type="button" id="disable" value="disable">
+		</div>
+		<div class="slidingview_wrapper" id="wrapper">
 			<div id="sidebar">sidebar here!</div>
 			<div id="body">body here!</div>
 		</div>
