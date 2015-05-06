@@ -85,6 +85,20 @@ ViewNavigator.prototype.replaceView = function( viewDescriptor ) {
 	this.history.push( viewDescriptor );
 }
 
+ViewNavigator.prototype.jumpHome = function () {
+	if (this.animating)
+		return;
+
+	var viewDescriptor = this.history[0];
+	viewDescriptor.animation = 'pushEffect'
+
+	//this is a hack to mimic behavior of pushView, then pop off the 'current' from the history
+	this.history.push( viewDescriptor );
+	this.updateView( viewDescriptor );
+	while (this.history.length > 0) this.history.pop();
+	this.history.push( viewDescriptor );
+}
+
 ViewNavigator.prototype.pushView = function( viewDescriptor ) {
 	if (this.animating)
 		return;
